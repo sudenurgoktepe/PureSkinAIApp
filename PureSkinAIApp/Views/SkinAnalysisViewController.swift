@@ -1,0 +1,260 @@
+import UIKit
+
+class SkinAnalysisViewController: UIViewController {
+    
+    // MARK: - Properties
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    private let contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let headerImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(named: "onboardingimage6")
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.alpha = 0.7
+        return imageView
+    }()
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Cilt Analiziniz Devam Ediyor!"
+        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        label.textColor = UIColor.black
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Verdiğiniz bilgilere göre kişiye özel cilt bakım rutininizi oluşturmaya hazırız."
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 1.0)
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let analysisStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 20
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    private let continueButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Hadi Başlayalım!", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0)
+        button.layer.cornerRadius = 25
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.alpha = 0
+        return button
+    }()
+    
+    private let backButton: UIButton = {
+        let button = UIButton(type: .system)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 24)
+        let image = UIImage(systemName: "chevron.left", withConfiguration: imageConfig)
+        button.setImage(image, for: .normal)
+        button.tintColor = .black
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+    }
+    
+    // MARK: - UI Setup
+    private func setupUI() {
+        view.backgroundColor = UIColor.white
+        
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubview(headerImageView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(descriptionLabel)
+        contentView.addSubview(analysisStackView)
+        view.addSubview(continueButton)
+        view.addSubview(backButton)
+        
+        NSLayoutConstraint.activate([
+            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: continueButton.topAnchor, constant: -20),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
+            headerImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            headerImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            headerImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            headerImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
+            
+            titleLabel.topAnchor.constraint(equalTo: headerImageView.bottomAnchor, constant: 30),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
+            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
+            
+            analysisStackView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 40),
+            analysisStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            analysisStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            analysisStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            
+            continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            continueButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            continueButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            continueButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        continueButton.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
+        
+        // Analiz animasyonunu başlat
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.startAnalysisAnimation()
+        }
+    }
+    
+   private func createAnalysisRow(text: String, isLastRow: Bool = false) -> UIView {
+    let containerView = UIView()
+    containerView.translatesAutoresizingMaskIntoConstraints = false
+    containerView.backgroundColor = .white
+    containerView.layer.cornerRadius = 15
+    containerView.layer.borderWidth = 1
+    containerView.layer.borderColor = UIColor.gray.cgColor
+    
+    let stackView = UIStackView()
+    stackView.axis = .horizontal
+    stackView.alignment = .center
+    stackView.spacing = 15
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    
+    let checkmarkImageView = UIImageView()
+    let checkmarkConfig = UIImage.SymbolConfiguration(pointSize: 24)
+    let checkmarkImage = UIImage(systemName: "checkmark.circle.fill", withConfiguration: checkmarkConfig)
+    checkmarkImageView.image = checkmarkImage
+    checkmarkImageView.tintColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0)
+    checkmarkImageView.alpha = 0
+    
+    let label = UILabel()
+    label.text = text
+    label.font = UIFont.systemFont(ofSize: 16)
+    label.textColor = .black
+    label.numberOfLines = 0
+    
+    if isLastRow {
+        let attributedText = NSMutableAttributedString(string: text)
+        let numberAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0),
+            .font: UIFont.systemFont(ofSize: 16, weight: .bold)
+        ]
+        
+        if let range = text.range(of: "16") {
+            let nsRange = NSRange(range, in: text)
+            attributedText.addAttributes(numberAttributes, range: nsRange)
+        }
+        
+        if let range = text.range(of: "---") {
+            let nsRange = NSRange(range, in: text)
+            attributedText.addAttributes(numberAttributes, range: nsRange)
+        }
+        
+        label.attributedText = attributedText
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.8
+    }
+    
+    stackView.addArrangedSubview(checkmarkImageView)
+    stackView.addArrangedSubview(label)
+    
+    containerView.addSubview(stackView)
+    
+    NSLayoutConstraint.activate([
+        stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 15),
+        stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15),
+        stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -15),
+        stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -15),
+        
+        checkmarkImageView.widthAnchor.constraint(equalToConstant: 24),
+        checkmarkImageView.heightAnchor.constraint(equalToConstant: 24)
+    ])
+    
+    return containerView
+}
+    
+  private func startAnalysisAnimation() {
+    let analysisTexts = [
+        "Cilt sorunlarınız analiz edildi",
+        "İçerik tercihlerin kaydedildi",
+        "Güvenli içerikler belirlendi",
+        "Kişiye özel ürün önerilerin hazır",
+        "Senin için 16 ürün hazırladık ve günlere özenle yerleştirdik. Ayrıca rutinlerinde kullanabileceğin \(Int.random(in: 100...999)) ürün tespit ettik."
+    ]
+    
+    for (index, text) in analysisTexts.enumerated() {
+        let row = createAnalysisRow(text: text, isLastRow: index == analysisTexts.count - 1)
+        row.alpha = 0
+        row.transform = CGAffineTransform(translationX: -50, y: 0)
+        analysisStackView.addArrangedSubview(row)
+        
+        UIView.animate(withDuration: 0.5, delay: Double(index) * 2.0, options: .curveEaseOut, animations: {
+            row.alpha = 1
+            row.transform = .identity
+        }) { _ in
+            if let checkmark = row.subviews.first?.subviews.first as? UIImageView {
+                UIView.animate(withDuration: 0.3) {
+                    checkmark.alpha = 1
+                }
+            }
+            
+            if index == analysisTexts.count - 1 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    UIView.animate(withDuration: 0.5) {
+                        self.continueButton.alpha = 1
+                    }
+                }
+            }
+        }
+    }
+}
+    
+    // MARK: - Actions
+    @objc private func backButtonTapped() {
+        dismiss(animated: true)
+    }
+    
+    @objc private func continueButtonTapped() {
+        let homeVC = HomeViewController()
+        navigationController?.pushViewController(homeVC, animated: true)
+    }
+} 

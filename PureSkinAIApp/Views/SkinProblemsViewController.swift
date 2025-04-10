@@ -1,0 +1,267 @@
+import UIKit
+
+class SkinProblemsViewController: UIViewController {
+    
+    // MARK: - Properties
+    private var selectedProblems: Set<SkinProblem> = []
+    
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    private let contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let headerImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(named: "onboardingimage6")
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.alpha = 0.7
+        return imageView
+    }()
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Cilt Sorunlarınız"
+        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        label.textColor = UIColor.black
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Aşağıdaki sorunlardan hangilerine sahipsiniz?"
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 1.0)
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let problemsGridView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        stackView.spacing = 15
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    private let continueButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("İsteğe Bağlı Devam Et", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0)
+        button.layer.cornerRadius = 25
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private let backButton: UIButton = {
+        let button = UIButton(type: .system)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 24)
+        let image = UIImage(systemName: "chevron.left", withConfiguration: imageConfig)
+        button.setImage(image, for: .normal)
+        button.tintColor = .black
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+    }
+    
+    // MARK: - UI Setup
+    private func setupUI() {
+        view.backgroundColor = UIColor.white
+        
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubview(headerImageView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(descriptionLabel)
+        contentView.addSubview(problemsGridView)
+        view.addSubview(continueButton)
+        view.addSubview(backButton)
+        
+        setupProblemsGrid()
+        
+        NSLayoutConstraint.activate([
+            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: continueButton.topAnchor, constant: -20),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
+            headerImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            headerImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            headerImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            headerImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
+            
+            titleLabel.topAnchor.constraint(equalTo: headerImageView.bottomAnchor, constant: 30),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
+            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30),
+            
+            problemsGridView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 40),
+            problemsGridView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            problemsGridView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            problemsGridView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            
+            continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            continueButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            continueButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            continueButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        continueButton.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
+    }
+    
+    private func setupProblemsGrid() {
+        let problems: [(title: String, problem: SkinProblem)] = [
+            ("Donuk cilt", .dullSkin),
+            ("Hassas cilt", .sensitiveSkin),
+            ("Çok kuru cilt", .veryDrySkin),
+            ("Akne izleri", .acneScars),
+            ("Kızarıklık", .redness),
+            ("Gözenekler", .pores),
+            ("Düzensiz doku", .unevenTexture),
+            ("İnce çizgiler", .fineLines),
+            ("Kırışıklıklar", .wrinkles),
+            ("Esneklik kaybı", .lossOfElasticity),
+            ("Şişkinlik", .swelling),
+            ("Göz altı morlukları", .darkCircles)
+        ]
+        
+        // 4 satır oluştur
+        for rowIndex in 0..<4 {
+            let rowStack = UIStackView()
+            rowStack.axis = .horizontal
+            rowStack.distribution = .fillEqually
+            rowStack.spacing = 15
+            rowStack.translatesAutoresizingMaskIntoConstraints = false
+            
+            problemsGridView.addArrangedSubview(rowStack)
+            
+            // Her satıra 3 buton ekle
+            for colIndex in 0..<3 {
+                let index = rowIndex * 3 + colIndex
+                if index < problems.count {
+                    let button = createProblemButton(title: problems[index].title, problem: problems[index].problem)
+                    rowStack.addArrangedSubview(button)
+                }
+            }
+        }
+    }
+    
+    private func createProblemButton(title: String, problem: SkinProblem) -> UIButton {
+        let button = UIButton(type: .system)
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 15
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.gray.cgColor
+        button.tag = problem.rawValue
+        
+        let label = UILabel()
+        label.text = title
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        label.textColor = .gray
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addSubview(label)
+        
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: button.topAnchor, constant: 10),
+            label.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: 5),
+            label.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: -5),
+            label.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: -10)
+        ])
+        
+        button.addTarget(self, action: #selector(problemButtonTapped(_:)), for: .touchUpInside)
+        return button
+    }
+    
+    // MARK: - Actions
+    @objc private func problemButtonTapped(_ sender: UIButton) {
+        let problem = SkinProblem(rawValue: sender.tag)!
+        
+        if selectedProblems.contains(problem) {
+            // Seçimi kaldır
+            selectedProblems.remove(problem)
+            sender.backgroundColor = .white
+            sender.layer.borderColor = UIColor.gray.cgColor
+            if let label = sender.subviews.first as? UILabel {
+                label.textColor = .gray
+            }
+        } else {
+            // Seçimi ekle
+            selectedProblems.insert(problem)
+            sender.backgroundColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 0.1)
+            sender.layer.borderColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0).cgColor
+            if let label = sender.subviews.first as? UILabel {
+                label.textColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0)
+            }
+        }
+        
+        checkContinueButtonState()
+    }
+    
+    private func checkContinueButtonState() {
+        continueButton.alpha = 1.0
+        continueButton.isEnabled = true
+    }
+    
+    @objc private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func continueButtonTapped() {
+        let skinConditionsVC = SkinConditionsViewController()
+        navigationController?.pushViewController(skinConditionsVC, animated: true)
+    }
+}
+
+// MARK: - Enums
+enum SkinProblem: Int {
+    case dullSkin = 0
+    case sensitiveSkin = 1
+    case veryDrySkin = 2
+    case acneScars = 3
+    case redness = 4
+    case pores = 5
+    case unevenTexture = 6
+    case fineLines = 7
+    case wrinkles = 8
+    case lossOfElasticity = 9
+    case swelling = 10
+    case darkCircles = 11
+} 
