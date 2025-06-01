@@ -7,16 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E04A0342DECFD3700B9B9D7 /* RoutineCategoryBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04A0332DECFD3700B9B9D7 /* RoutineCategoryBottomSheet.swift */; };
+		9E3450692DAB21C100531EBB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3450682DAB21C100531EBB /* SettingsViewController.swift */; };
 		9E58E61C2D975B3A009F59EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E58E61B2D975B3A009F59EE /* AppDelegate.swift */; };
 		9E58E61E2D975B3A009F59EE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E58E61D2D975B3A009F59EE /* SceneDelegate.swift */; };
 		9E58E6232D975B3A009F59EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E58E6212D975B3A009F59EE /* Main.storyboard */; };
 		9E58E6252D975B3B009F59EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E58E6242D975B3B009F59EE /* Assets.xcassets */; };
 		9E58E6282D975B3B009F59EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E58E6262D975B3B009F59EE /* LaunchScreen.storyboard */; };
-		9E58E6322D9767E2009F59EE /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E58E6312D9767E2009F59EE /* HomeViewController.swift */; };
 		9E58E6342D976811009F59EE /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E58E6332D976811009F59EE /* OnboardingViewController.swift */; };
 		9E58E6362D976840009F59EE /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E58E6352D976840009F59EE /* SplashViewController.swift */; };
 		9E58E6382D97686F009F59EE /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E58E6372D97686F009F59EE /* OnboardingViewModel.swift */; };
 		9E58E63A2D976897009F59EE /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E58E6392D976897009F59EE /* SplashViewModel.swift */; };
+		9E88B2E62DC8A62B00410BB1 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9E88B2E52DC8A62B00410BB1 /* SnapKit */; };
+		9EA62E482DC5718D0062EDF0 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA62E472DC5718D0062EDF0 /* BottomSheetViewController.swift */; };
+		9EA62E4A2DC575D10062EDF0 /* BottomSheetMultiSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA62E492DC575D10062EDF0 /* BottomSheetMultiSelectViewController.swift */; };
+		9EA62E4C2DC59B910062EDF0 /* RoutineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA62E4B2DC59B910062EDF0 /* RoutineTableViewCell.swift */; };
+		9EACC7742DC4107D00290FA4 /* ProfileEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EACC7732DC4107D00290FA4 /* ProfileEnums.swift */; };
 		9EE998B82D9C63CB002A509C /* SkinTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE998B72D9C63CB002A509C /* SkinTypeViewController.swift */; };
 		9EE998BA2D9C63E2002A509C /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE998B92D9C63E2002A509C /* UserInfoViewController.swift */; };
 		9EE998BC2D9C8D71002A509C /* SkinSensitivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE998BB2D9C8D71002A509C /* SkinSensitivityViewController.swift */; };
@@ -30,18 +36,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9E58E6182D975B3A009F59EE /* PureSkinAIApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PureSkinAIApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E04A02C2DECEC8600B9B9D7 /* PureSkinAIApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PureSkinAIApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E04A0332DECFD3700B9B9D7 /* RoutineCategoryBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCategoryBottomSheet.swift; sourceTree = "<group>"; };
+		9E3450682DAB21C100531EBB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9E58E61B2D975B3A009F59EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E58E61D2D975B3A009F59EE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9E58E6222D975B3A009F59EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9E58E6242D975B3B009F59EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E58E6272D975B3B009F59EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E58E6292D975B3B009F59EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9E58E6312D9767E2009F59EE /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		9E58E6332D976811009F59EE /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		9E58E6352D976840009F59EE /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		9E58E6372D97686F009F59EE /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		9E58E6392D976897009F59EE /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
+		9EA62E472DC5718D0062EDF0 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
+		9EA62E492DC575D10062EDF0 /* BottomSheetMultiSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetMultiSelectViewController.swift; sourceTree = "<group>"; };
+		9EA62E4B2DC59B910062EDF0 /* RoutineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTableViewCell.swift; sourceTree = "<group>"; };
+		9EACC7732DC4107D00290FA4 /* ProfileEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEnums.swift; sourceTree = "<group>"; };
 		9EE998B72D9C63CB002A509C /* SkinTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinTypeViewController.swift; sourceTree = "<group>"; };
 		9EE998B92D9C63E2002A509C /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		9EE998BB2D9C8D71002A509C /* SkinSensitivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinSensitivityViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E88B2E62DC8A62B00410BB1 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,16 +81,8 @@
 			isa = PBXGroup;
 			children = (
 				9E58E61A2D975B3A009F59EE /* PureSkinAIApp */,
-				9E58E6192D975B3A009F59EE /* Products */,
+				9E04A02C2DECEC8600B9B9D7 /* PureSkinAIApp.app */,
 			);
-			sourceTree = "<group>";
-		};
-		9E58E6192D975B3A009F59EE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9E58E6182D975B3A009F59EE /* PureSkinAIApp.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		9E58E61A2D975B3A009F59EE /* PureSkinAIApp */ = {
@@ -90,12 +94,11 @@
 				9E58E6242D975B3B009F59EE /* Assets.xcassets */,
 				9E58E6262D975B3B009F59EE /* LaunchScreen.storyboard */,
 				9E58E6292D975B3B009F59EE /* Info.plist */,
-				9E58E6312D9767E2009F59EE /* HomeViewController.swift */,
-				9E58E6332D976811009F59EE /* OnboardingViewController.swift */,
 				9E58E6352D976840009F59EE /* SplashViewController.swift */,
 				9E58E6372D97686F009F59EE /* OnboardingViewModel.swift */,
 				9E58E6392D976897009F59EE /* SplashViewModel.swift */,
 				9EE998B72D9C63CB002A509C /* SkinTypeViewController.swift */,
+				9E58E6332D976811009F59EE /* OnboardingViewController.swift */,
 				9EE998B92D9C63E2002A509C /* UserInfoViewController.swift */,
 				9EE998BB2D9C8D71002A509C /* SkinSensitivityViewController.swift */,
 				9EE998BD2D9C8D88002A509C /* SkinProblemsViewController.swift */,
@@ -105,6 +108,12 @@
 				9EE998C52D9CBB67002A509C /* RoutinesViewController.swift */,
 				9EE998C72D9CBB8A002A509C /* ChatViewController.swift */,
 				9EE998C92D9CBBAD002A509C /* ProfileViewController.swift */,
+				9E3450682DAB21C100531EBB /* SettingsViewController.swift */,
+				9EACC7732DC4107D00290FA4 /* ProfileEnums.swift */,
+				9EA62E472DC5718D0062EDF0 /* BottomSheetViewController.swift */,
+				9EA62E492DC575D10062EDF0 /* BottomSheetMultiSelectViewController.swift */,
+				9EA62E4B2DC59B910062EDF0 /* RoutineTableViewCell.swift */,
+				9E04A0332DECFD3700B9B9D7 /* RoutineCategoryBottomSheet.swift */,
 			);
 			path = PureSkinAIApp;
 			sourceTree = "<group>";
@@ -125,8 +134,11 @@
 			dependencies = (
 			);
 			name = PureSkinAIApp;
+			packageProductDependencies = (
+				9E88B2E52DC8A62B00410BB1 /* SnapKit */,
+			);
 			productName = PureSkinAIApp;
-			productReference = 9E58E6182D975B3A009F59EE /* PureSkinAIApp.app */;
+			productReference = 9E04A02C2DECEC8600B9B9D7 /* PureSkinAIApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -153,7 +165,10 @@
 				Base,
 			);
 			mainGroup = 9E58E60F2D975B3A009F59EE;
-			productRefGroup = 9E58E6192D975B3A009F59EE /* Products */;
+			packageReferences = (
+				9E88B2E42DC8A62A00410BB1 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
+			productRefGroup = 9E58E60F2D975B3A009F59EE;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -183,6 +198,8 @@
 				9E58E61C2D975B3A009F59EE /* AppDelegate.swift in Sources */,
 				9EE998BC2D9C8D71002A509C /* SkinSensitivityViewController.swift in Sources */,
 				9EE998C82D9CBB8A002A509C /* ChatViewController.swift in Sources */,
+				9EA62E482DC5718D0062EDF0 /* BottomSheetViewController.swift in Sources */,
+				9EA62E4C2DC59B910062EDF0 /* RoutineTableViewCell.swift in Sources */,
 				9EE998C42D9CBB32002A509C /* ProductsViewController.swift in Sources */,
 				9EE998C22D9C9DEC002A509C /* SkinAnalysisViewController.swift in Sources */,
 				9EE998C62D9CBB67002A509C /* RoutinesViewController.swift in Sources */,
@@ -191,12 +208,15 @@
 				9E58E61E2D975B3A009F59EE /* SceneDelegate.swift in Sources */,
 				9E58E63A2D976897009F59EE /* SplashViewModel.swift in Sources */,
 				9EE998BA2D9C63E2002A509C /* UserInfoViewController.swift in Sources */,
-				9E58E6322D9767E2009F59EE /* HomeViewController.swift in Sources */,
 				9EE998B82D9C63CB002A509C /* SkinTypeViewController.swift in Sources */,
 				9E58E6342D976811009F59EE /* OnboardingViewController.swift in Sources */,
+				9EA62E4A2DC575D10062EDF0 /* BottomSheetMultiSelectViewController.swift in Sources */,
 				9E58E6362D976840009F59EE /* SplashViewController.swift in Sources */,
 				9EE998BE2D9C8D88002A509C /* SkinProblemsViewController.swift in Sources */,
 				9EE998C02D9C8DA1002A509C /* SkinConditionsViewController.swift in Sources */,
+				9EACC7742DC4107D00290FA4 /* ProfileEnums.swift in Sources */,
+				9E04A0342DECFD3700B9B9D7 /* RoutineCategoryBottomSheet.swift in Sources */,
+				9E3450692DAB21C100531EBB /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +439,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9E88B2E42DC8A62A00410BB1 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9E88B2E52DC8A62B00410BB1 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E88B2E42DC8A62A00410BB1 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9E58E6102D975B3A009F59EE /* Project object */;
 }

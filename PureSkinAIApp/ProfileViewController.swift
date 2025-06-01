@@ -1,9 +1,30 @@
 import UIKit
 
-// AgeRange enum'ını kaldırıyorum çünkü UserInfoViewController.swift dosyasında zaten tanımlanmış
 
-class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ProfileViewController: UIViewController {
     
+    
+    func presentBottomSheet(with options: [String], selectedOption: String?, selectionHandler: @escaping (String) -> Void) {
+        let bottomSheetVC = BottomSheetViewController()
+        bottomSheetVC.modalPresentationStyle = .overFullScreen
+        bottomSheetVC.options = options
+        bottomSheetVC.selectedOption = selectedOption
+        bottomSheetVC.onSelect = selectionHandler
+        present(bottomSheetVC, animated: false)
+    }
+
+    
+    func presentBottomSheetMultiSelect(options: [String], selected: [String], completion: @escaping ([String]) -> Void) {
+        let vc = BottomSheetMultiSelectViewController()
+        vc.options = options
+        vc.selectedOptions = Set(selected)
+        vc.onDone = completion
+        vc.modalPresentationStyle = .overFullScreen
+        present(vc, animated: false)
+    }
+    private var selectedSkinConditions: Set<SkinCondition> = []
+    private var selectedSkinProblems: Set<SkinProblem> = []
+
     // MARK: - Properties
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -17,28 +38,12 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return view
     }()
     
-    private let headerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Profil"
-        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     private let settingsButton: UIButton = {
         let button = UIButton(type: .system)
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 24)
-        let image = UIImage(systemName: "gearshape.fill", withConfiguration: imageConfig)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 20)
+        let image = UIImage(systemName: "gearshape", withConfiguration: imageConfig)
         button.setImage(image, for: .normal)
-        button.tintColor = .black
+        button.tintColor = .labelPrimary
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -46,8 +51,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     // MARK: - Bölüm 1: Temel Bilgiler
     private let basicInfoCard: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 15
+        view.backgroundColor = .backgroundcolor2
+        view.layer.cornerRadius = 17
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.1
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -60,25 +65,25 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let label = UILabel()
         label.text = "Temel Bilgiler"
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        label.textColor = .black
+        label.textColor = .labelPrimary
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let ageLabel: UILabel = {
         let label = UILabel()
-        label.text = "Yaş: 55+"
+        label.text = "Yaş: "
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = .black
+        label.textColor = .labelPrimary
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let genderLabel: UILabel = {
         let label = UILabel()
-        label.text = "Cinsiyet: Erkek"
+        label.text = "Cinsiyet: "
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = .black
+        label.textColor = .labelPrimary
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -86,7 +91,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let editAgeButton: UIButton = {
         let button = UIButton(type: .system)
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 18)
-        let image = UIImage(systemName: "pencil", withConfiguration: imageConfig)
+        let image = UIImage(systemName: "pencil.and.scribble", withConfiguration: imageConfig)
         button.setImage(image, for: .normal)
         button.tintColor = UIColor(red: 39/255, green: 174/255, blue: 96/255, alpha: 1.0)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -96,7 +101,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let editGenderButton: UIButton = {
         let button = UIButton(type: .system)
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 18)
-        let image = UIImage(systemName: "pencil", withConfiguration: imageConfig)
+        let image = UIImage(systemName: "pencil.and.scribble", withConfiguration: imageConfig)
         button.setImage(image, for: .normal)
         button.tintColor = UIColor(red: 39/255, green: 174/255, blue: 96/255, alpha: 1.0)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -106,7 +111,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     // MARK: - Bölüm 2: Cilt Analizi Geçmişi
     private let skinAnalysisCard: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .backgroundcolor2
         view.layer.cornerRadius = 15
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.1
@@ -120,7 +125,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let label = UILabel()
         label.text = "Cilt Analizi Geçmişi"
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        label.textColor = .black
+        label.textColor = .labelPrimary
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -132,6 +137,16 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(red: 39/255, green: 174/255, blue: 96/255, alpha: 1.0)
         button.layer.cornerRadius = 10
+        
+        // Kamera ikonu ekle
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 16)
+        let image = UIImage(systemName: "camera.fill", withConfiguration: imageConfig)
+        button.setImage(image, for: .normal)
+        button.tintColor = .white
+        
+        // İkon ve metin arasına boşluk ekle
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 10)
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -150,7 +165,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     // MARK: - Bölüm 3: Cilt Tipi
     private let skinTypeCard: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .backgroundcolor2
         view.layer.cornerRadius = 15
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.1
@@ -164,16 +179,16 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let label = UILabel()
         label.text = "Cilt Tipi"
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        label.textColor = .black
+        label.textColor = .labelPrimary
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let skinTypeValueLabel: UILabel = {
         let label = UILabel()
-        label.text = "Yağlı"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = .black
+        label.textColor = .labelPrimary
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -192,7 +207,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let editSkinTypeButton: UIButton = {
         let button = UIButton(type: .system)
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 18)
-        let image = UIImage(systemName: "pencil", withConfiguration: imageConfig)
+        let image = UIImage(systemName: "pencil.and.scribble", withConfiguration: imageConfig)
         button.setImage(image, for: .normal)
         button.tintColor = UIColor(red: 39/255, green: 174/255, blue: 96/255, alpha: 1.0)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -202,7 +217,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     // MARK: - Bölüm 4: Cilt Sorunları
     private let skinProblemsCard: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .backgroundcolor2
         view.layer.cornerRadius = 15
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.1
@@ -216,7 +231,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let label = UILabel()
         label.text = "Cilt Sorunları"
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        label.textColor = .black
+        label.textColor = .labelPrimary
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -232,7 +247,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let editSkinProblemsButton: UIButton = {
         let button = UIButton(type: .system)
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 18)
-        let image = UIImage(systemName: "pencil", withConfiguration: imageConfig)
+        let image = UIImage(systemName: "pencil.and.scribble", withConfiguration: imageConfig)
         button.setImage(image, for: .normal)
         button.tintColor = UIColor(red: 39/255, green: 174/255, blue: 96/255, alpha: 1.0)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -242,7 +257,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     // MARK: - Bölüm 5: Cilt Hassasiyeti
     private let skinSensitivityCard: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .backgroundcolor2
         view.layer.cornerRadius = 15
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.1
@@ -256,16 +271,16 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let label = UILabel()
         label.text = "Cilt Hassasiyeti"
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        label.textColor = .black
+        label.textColor = .labelPrimary
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let skinSensitivityValueLabel: UILabel = {
         let label = UILabel()
-        label.text = "Çok Hassas"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = .black
+        label.textColor = .labelPrimary
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -273,43 +288,94 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let editSkinSensitivityButton: UIButton = {
         let button = UIButton(type: .system)
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 18)
-        let image = UIImage(systemName: "pencil", withConfiguration: imageConfig)
+        let image = UIImage(systemName: "pencil.and.scribble", withConfiguration: imageConfig)
+        button.setImage(image, for: .normal)
+        button.tintColor = UIColor(red: 39/255, green: 174/255, blue: 96/255, alpha: 1.0)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+   
+    // MARK: - Bölüm 6: Cilt Durumlarınız
+    private let skinConditionsCard: UIView = {
+        let view = UIView()
+        view.backgroundColor = .backgroundcolor2
+        view.layer.cornerRadius = 15
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.1
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
+        view.layer.shadowRadius = 4
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let skinConditionsTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Cilt Durumlarınız"
+        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        label.textColor = .labelPrimary
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let skinConditionsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    private let editSkinConditionsButton: UIButton = {
+        let button = UIButton(type: .system)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 18)
+        let image = UIImage(systemName: "pencil.and.scribble", withConfiguration: imageConfig)
         button.setImage(image, for: .normal)
         button.tintColor = UIColor(red: 39/255, green: 174/255, blue: 96/255, alpha: 1.0)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    // Yaş seçim arayüzü için yeni özellikler
-    private var ageSelectionView: UIView?
-    private var ageSelectionPanGesture: UIPanGestureRecognizer?
-    private var ageSelectionInitialY: CGFloat = 0
-    private var ageSelectionCurrentY: CGFloat = 0
-    private var ageSelectionHeight: CGFloat = 0
-    private var ageSelectionViewHeight: CGFloat = 0
-    private var ageOptions: [AgeRange] = [.range13to17, .range18to24, .range25to34, .range35to44, .range45to54, .range55plus, .none]
-    private var selectedAgeOption: AgeRange?
-    private var ageSelectionTableView: UITableView?
-    private var ageSelectionTitleLabel: UILabel?
-    private var ageSelectionDoneButton: UIButton?
-    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         loadUserData()
+        
+        // Navigation bar ayarları
+        title = "Profil"
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingsButton)
+        
+        // Navigation bar'ı görünür yap
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        // Navigation bar özelleştirmeleri
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .backgroundcolor
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.labelPrimary]
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.tintColor = .black
+        
+        // Tab bar arka plan rengi
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithOpaqueBackground()
+        tabBarAppearance.backgroundColor = .backgroundcolor
+        tabBarController?.tabBar.standardAppearance = tabBarAppearance
+        tabBarController?.tabBar.scrollEdgeAppearance = tabBarAppearance
     }
     
     // MARK: - UI Setup
     private func setupUI() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .backgroundcolor
         
-        // Header view
-        view.addSubview(headerView)
-        headerView.addSubview(titleLabel)
-        headerView.addSubview(settingsButton)
         
+     
         // Scroll view
+        scrollView.backgroundColor = .backgroundcolor
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
@@ -345,26 +411,20 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         skinSensitivityCard.addSubview(skinSensitivityTitleLabel)
         skinSensitivityCard.addSubview(skinSensitivityValueLabel)
         skinSensitivityCard.addSubview(editSkinSensitivityButton)
+       
+        // Cilt Durumlarınız
+        contentView.addSubview(skinConditionsCard)
+        skinConditionsCard.addSubview(skinConditionsTitleLabel)
+        skinConditionsCard.addSubview(skinConditionsStackView)
+        skinConditionsCard.addSubview(editSkinConditionsButton)
         
         // Constraints
         NSLayoutConstraint.activate([
-            // Header view
-            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 60),
-            
-            titleLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20),
-            
-            settingsButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            settingsButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -20),
-            
             // Scroll view
-            scrollView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10), // Tab bar için boşluğu azalttım
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
@@ -449,7 +509,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             skinSensitivityCard.topAnchor.constraint(equalTo: skinProblemsCard.bottomAnchor, constant: 20),
             skinSensitivityCard.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             skinSensitivityCard.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            skinSensitivityCard.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
             
             skinSensitivityTitleLabel.topAnchor.constraint(equalTo: skinSensitivityCard.topAnchor, constant: 20),
             skinSensitivityTitleLabel.leadingAnchor.constraint(equalTo: skinSensitivityCard.leadingAnchor, constant: 20),
@@ -459,7 +518,28 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             skinSensitivityValueLabel.bottomAnchor.constraint(equalTo: skinSensitivityCard.bottomAnchor, constant: -20),
             
             editSkinSensitivityButton.centerYAnchor.constraint(equalTo: skinSensitivityValueLabel.centerYAnchor),
-            editSkinSensitivityButton.trailingAnchor.constraint(equalTo: skinSensitivityCard.trailingAnchor, constant: -20)
+            editSkinSensitivityButton.trailingAnchor.constraint(equalTo: skinSensitivityCard.trailingAnchor, constant: -20),
+            
+            // Cilt Durumlarınız
+            skinConditionsCard.topAnchor.constraint(equalTo: skinSensitivityCard.bottomAnchor, constant: 20),
+            skinConditionsCard.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            skinConditionsCard.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            skinConditionsCard.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            
+            // Başlık Label
+            skinConditionsTitleLabel.topAnchor.constraint(equalTo: skinConditionsCard.topAnchor, constant: 20),
+            skinConditionsTitleLabel.leadingAnchor.constraint(equalTo: skinConditionsCard.leadingAnchor, constant: 20),
+            
+            skinConditionsStackView.topAnchor.constraint(equalTo: skinConditionsTitleLabel.bottomAnchor, constant: 20),
+            skinConditionsStackView.leadingAnchor.constraint(equalTo: skinConditionsCard.leadingAnchor, constant: 20),
+            skinConditionsStackView.trailingAnchor.constraint(equalTo: skinConditionsCard.trailingAnchor, constant: -20),
+            skinConditionsStackView.bottomAnchor.constraint(equalTo: skinConditionsCard.bottomAnchor, constant: -20),
+            
+            // Düzenle Butonu
+            editSkinConditionsButton.centerYAnchor.constraint(equalTo: skinConditionsTitleLabel.centerYAnchor),
+            editSkinConditionsButton.trailingAnchor.constraint(equalTo: skinConditionsCard.trailingAnchor, constant: -20),
+            editSkinConditionsButton.widthAnchor.constraint(equalToConstant: 30),
+            editSkinConditionsButton.heightAnchor.constraint(equalToConstant: 30),
         ])
         
         // Butonlar için action
@@ -468,12 +548,17 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         editAgeButton.addTarget(self, action: #selector(editAgeButtonTapped), for: .touchUpInside)
         editGenderButton.addTarget(self, action: #selector(editGenderButtonTapped), for: .touchUpInside)
         editSkinTypeButton.addTarget(self, action: #selector(editSkinTypeButtonTapped), for: .touchUpInside)
+
         editSkinProblemsButton.addTarget(self, action: #selector(editSkinProblemsButtonTapped), for: .touchUpInside)
         editSkinSensitivityButton.addTarget(self, action: #selector(editSkinSensitivityButtonTapped), for: .touchUpInside)
+        editSkinConditionsButton.addTarget(self, action: #selector(editSkinConditionsButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - User Data
     private func loadUserData() {
+        selectedSkinConditions = []
+        
+        
         // Temel Bilgiler
         if let genderRawValue = UserDefaults.standard.object(forKey: "userGender") as? Int,
            let ageRangeRawValue = UserDefaults.standard.object(forKey: "userAgeRange") as? Int {
@@ -512,18 +597,25 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             switch skinType {
             case .normal:
                 skinTypeValueLabel.text = "Normal"
+                skinTypeIconImageView.image = UIImage(systemName: "sun.max.fill")
             case .dry:
                 skinTypeValueLabel.text = "Kuru"
+                skinTypeIconImageView.image = UIImage(systemName: "wind")
             case .oily:
                 skinTypeValueLabel.text = "Yağlı"
+                skinTypeIconImageView.image = UIImage(systemName: "drop.triangle")
             case .combination:
                 skinTypeValueLabel.text = "Karma"
+                skinTypeIconImageView.image = UIImage(systemName: "circle.lefthalf.filled")
             case .sensitive:
                 skinTypeValueLabel.text = "Hassas"
+                skinTypeIconImageView.image = UIImage(systemName: "exclamationmark.triangle")
             }
+            
         }
         
         // Cilt Hassasiyeti
+        
         if let sensitivityRawValue = UserDefaults.standard.object(forKey: "userSkinSensitivity") as? Int,
            let sensitivity = SkinSensitivity(rawValue: sensitivityRawValue) {
             
@@ -541,15 +633,25 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         // Cilt Sorunları
         if let problemsArray = UserDefaults.standard.array(forKey: "userSkinProblems") as? [Int] {
-            // Önce mevcut sorunları temizle
-            skinProblemsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+            let problems = problemsArray.compactMap { SkinProblem(rawValue: $0) }
+            self.selectedSkinProblems = Set(problems) 
             
-            // Yeni sorunları ekle
-            for problemRawValue in problemsArray {
-                if let problem = SkinProblem(rawValue: problemRawValue) {
-                    let problemView = createProblemView(problem: problem)
-                    skinProblemsStackView.addArrangedSubview(problemView)
-                }
+            skinProblemsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+            for problem in problems {
+                let view = createProblemView(problem: problem)
+                skinProblemsStackView.addArrangedSubview(view)
+            }
+        }
+        
+        // Cilt Durumları
+        if let rawValues = UserDefaults.standard.array(forKey: "userSkinConditions") as? [Int] {
+            let conditions = rawValues.compactMap { SkinCondition(rawValue: $0) }
+            self.selectedSkinConditions = Set(conditions)
+            
+            skinConditionsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+            for condition in conditions {
+                let view = createConditionView(condition: condition.title)
+                skinConditionsStackView.addArrangedSubview(view)
             }
         }
     }
@@ -560,7 +662,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         let checkmarkImageView = UIImageView()
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 18)
-        let image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: imageConfig)
+        let image = UIImage(systemName: "exclamationmark.circle.fill", withConfiguration: imageConfig)
         checkmarkImageView.image = image
         checkmarkImageView.tintColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0)
         checkmarkImageView.contentMode = .scaleAspectFit
@@ -569,7 +671,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let label = UILabel()
         label.text = problem.title
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = .black
+        label.textColor = .labelPrimary
         label.translatesAutoresizingMaskIntoConstraints = false
         
         containerView.addSubview(checkmarkImageView)
@@ -591,10 +693,63 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return containerView
     }
     
+    private func createConditionView(condition: String) -> UIView {
+        let containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let iconImageView = UIImageView()
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 18)
+        
+        // Duruma göre ikon belirle (isteğe bağlı)
+        var image: UIImage?
+        switch condition {
+        case "Egzama":
+            image = UIImage(systemName: "allergens", withConfiguration: imageConfig)
+        case "Rozasea":
+            image = UIImage(systemName: "flame", withConfiguration: imageConfig)
+        case "Sedef hastalığı":
+            image = UIImage(systemName: "circle.dotted", withConfiguration: imageConfig)
+        case "Kurdeşen":
+            image = UIImage(systemName: "circle.grid.hex", withConfiguration: imageConfig)
+        default:
+            image = UIImage(systemName: "circle", withConfiguration: imageConfig)
+        }
+        
+        iconImageView.image = image
+        iconImageView.tintColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0)
+        iconImageView.contentMode = .scaleAspectFit
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let label = UILabel()
+        label.text = condition
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = .labelPrimary
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        containerView.addSubview(iconImageView)
+        containerView.addSubview(label)
+        
+        NSLayoutConstraint.activate([
+            containerView.heightAnchor.constraint(equalToConstant: 30),
+            
+            iconImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            iconImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            iconImageView.widthAnchor.constraint(equalToConstant: 24),
+            iconImageView.heightAnchor.constraint(equalToConstant: 24),
+            
+            label.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10),
+            label.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            label.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
+        ])
+        
+        return containerView
+    }
+    
     // MARK: - Actions
     @objc private func settingsButtonTapped() {
         // Ayarlar sayfasına yönlendirme
-        print("Ayarlar butonuna tıklandı")
+        let settingsVC = SettingsViewController()
+        navigationController?.pushViewController(settingsVC, animated: true)
     }
     
     @objc private func addSelfieButtonTapped() {
@@ -603,298 +758,118 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     @objc private func editAgeButtonTapped() {
-        // Yaş seçim arayüzünü göster
-        showAgeSelectionView()
+        let currentAgeRaw = UserDefaults.standard.integer(forKey: "userAgeRange")
+        let currentAge = AgeRange(rawValue: currentAgeRaw)
+        let currentAgeTitle = currentAge?.displayName
+
+        presentBottomSheet(with: AgeRange.allTitles, selectedOption: currentAgeTitle) { selected in
+            if let selectedAge = AgeRange.allCases.first(where: { $0.displayName == selected }) {
+                UserDefaults.standard.set(selectedAge.rawValue, forKey: "userAgeRange")
+                self.ageLabel.text = "Yaş: \(selected)"
+            }
+        }
     }
-    
+
     @objc private func editGenderButtonTapped() {
-        // Cinsiyet düzenleme sayfasına yönlendirme
-        let userInfoVC = UserInfoViewController()
-        userInfoVC.isEditingMode = true
-        userInfoVC.editingField = .gender
-        navigationController?.pushViewController(userInfoVC, animated: true)
+        let currentGenderRaw = UserDefaults.standard.integer(forKey: "userGender")
+        let currentGender = Gender(rawValue: currentGenderRaw)
+        let currentGenderTitle = currentGender?.displayName
+
+        presentBottomSheet(with: Gender.allTitles, selectedOption: currentGenderTitle) { selected in
+            if let selectedGender = Gender.allCases.first(where: { $0.displayName == selected }) {
+                UserDefaults.standard.set(selectedGender.rawValue, forKey: "userGender")
+                self.genderLabel.text = "Cinsiyet: \(selectedGender.displayName)"
+            }
+        }
     }
+
     
     @objc private func editSkinTypeButtonTapped() {
-        // Cilt tipi düzenleme sayfasına yönlendirme
-        let skinTypeVC = SkinTypeViewController()
-        skinTypeVC.isEditingMode = true
-        navigationController?.pushViewController(skinTypeVC, animated: true)
+        let currentSkinTypeRaw = UserDefaults.standard.integer(forKey: "userSkinType")
+        let currentSkinType = SkinType(rawValue: currentSkinTypeRaw)
+        let currentSkinTypeTitle = currentSkinType?.displayName
+
+        presentBottomSheet(with: SkinType.allTitles, selectedOption: currentSkinTypeTitle) { selected in
+            guard let selectedSkinType = SkinType.allCases.first(where: { $0.displayName == selected }) else {
+                return
+            }
+
+            UserDefaults.standard.set(selectedSkinType.rawValue, forKey: "userSkinType")
+            self.skinTypeValueLabel.text = selected
+
+            switch selectedSkinType {
+            case .normal:
+                self.skinTypeIconImageView.image = UIImage(systemName: "sun.max.fill")
+            case .dry:
+                self.skinTypeIconImageView.image = UIImage(systemName: "wind")
+            case .oily:
+                self.skinTypeIconImageView.image = UIImage(systemName: "drop.triangle")
+            case .combination:
+                self.skinTypeIconImageView.image = UIImage(systemName: "circle.lefthalf.filled")
+            case .sensitive:
+                self.skinTypeIconImageView.image = UIImage(systemName: "exclamationmark.triangle")
+            }
+        }
     }
-    
+
     @objc private func editSkinProblemsButtonTapped() {
-        // Cilt sorunları düzenleme sayfasına yönlendirme
-        let skinProblemsVC = SkinProblemsViewController()
-        skinProblemsVC.isEditingMode = true
-        navigationController?.pushViewController(skinProblemsVC, animated: true)
+        let titles = SkinProblem.allTitles
+        let currentSelections = selectedSkinProblems.map { $0.title }
+
+        presentBottomSheetMultiSelect(
+            options: titles,
+            selected: currentSelections
+        ) { selectedOptions in
+            let selected = SkinProblem.allCases.filter { selectedOptions.contains($0.title) }
+            self.selectedSkinProblems = Set(selected)
+
+            let rawValues = selected.map { $0.rawValue }
+            UserDefaults.standard.set(rawValues, forKey: "userSkinProblems")
+
+            self.skinProblemsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+            for problem in selected {
+                let view = self.createProblemView(problem: problem)
+                self.skinProblemsStackView.addArrangedSubview(view)
+            }
+        }
     }
-    
+
+
     @objc private func editSkinSensitivityButtonTapped() {
-        // Cilt hassasiyeti düzenleme sayfasına yönlendirme
-        let skinSensitivityVC = SkinSensitivityViewController()
-        skinSensitivityVC.isEditingMode = true
-        navigationController?.pushViewController(skinSensitivityVC, animated: true)
-    }
-    
-    // MARK: - Yaş Seçim Arayüzü
-    private func showAgeSelectionView() {
-        // Eğer zaten gösteriliyorsa, tekrar gösterme
-        if ageSelectionView != nil {
-            return
-        }
-        
-        // Tab bar'ı gizle
-        tabBarController?.tabBar.isHidden = true
-        
-        // Ekran yüksekliğinin %40'ı kadar bir yükseklik belirle
-        ageSelectionViewHeight = view.frame.height * 0.4
-        
-        // Ana görünümü oluştur
-        let selectionView = UIView()
-        selectionView.backgroundColor = .white
-        selectionView.layer.cornerRadius = 20
-        selectionView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        selectionView.layer.shadowColor = UIColor.black.cgColor
-        selectionView.layer.shadowOpacity = 0.2
-        selectionView.layer.shadowOffset = CGSize(width: 0, height: -2)
-        selectionView.layer.shadowRadius = 5
-        selectionView.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Başlık etiketi
-        let titleLabel = UILabel()
-        titleLabel.text = "Yaş"
-        titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        titleLabel.textAlignment = .center
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Yaş seçenekleri için collection view
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 15
-        layout.minimumInteritemSpacing = 15
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
-        
-        // Her satırda 2 öğe olacak şekilde ayarla
-        let itemWidth = (UIScreen.main.bounds.width - 55) / 2 // 55 = sol padding (20) + sağ padding (20) + aralarındaki boşluk (15)
-        layout.itemSize = CGSize(width: itemWidth, height: 50)
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "AgeCell")
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Kaydırma çizgisi
-        let dragIndicator = UIView()
-        dragIndicator.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
-        dragIndicator.layer.cornerRadius = 2.5
-        dragIndicator.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Görünümleri ekle
-        selectionView.addSubview(dragIndicator)
-        selectionView.addSubview(titleLabel)
-        selectionView.addSubview(collectionView)
-        
-        // Ana görünüme ekle
-        view.addSubview(selectionView)
-        
-        // Constraint'leri ayarla
-        NSLayoutConstraint.activate([
-            selectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            selectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            selectionView.heightAnchor.constraint(equalToConstant: ageSelectionViewHeight),
-            selectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: ageSelectionViewHeight), // Tab bar'ın üstünde olması için safeAreaLayoutGuide kullanıyoruz
-            
-            dragIndicator.topAnchor.constraint(equalTo: selectionView.topAnchor, constant: 10),
-            dragIndicator.centerXAnchor.constraint(equalTo: selectionView.centerXAnchor),
-            dragIndicator.widthAnchor.constraint(equalToConstant: 40),
-            dragIndicator.heightAnchor.constraint(equalToConstant: 5),
-            
-            titleLabel.topAnchor.constraint(equalTo: dragIndicator.bottomAnchor, constant: 15),
-            titleLabel.leadingAnchor.constraint(equalTo: selectionView.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: selectionView.trailingAnchor, constant: -20),
-            
-            collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            collectionView.leadingAnchor.constraint(equalTo: selectionView.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: selectionView.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: selectionView.bottomAnchor)
-        ])
-        
-        // Pan gesture recognizer ekle
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleAgeSelectionPanGesture(_:)))
-        selectionView.addGestureRecognizer(panGesture)
-        
-        // Referansları sakla
-        ageSelectionView = selectionView
-        ageSelectionPanGesture = panGesture
-        ageSelectionTableView = nil // Artık tableView kullanmıyoruz
-        ageSelectionTitleLabel = titleLabel
-        
-        // Animasyonla göster
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
-            selectionView.transform = CGAffineTransform(translationX: 0, y: -self.ageSelectionViewHeight)
-        }, completion: nil)
-    }
-    
-    @objc private func handleAgeSelectionPanGesture(_ gesture: UIPanGestureRecognizer) {
-        guard let selectionView = ageSelectionView else { return }
-        
-        let translation = gesture.translation(in: view)
-        
-        switch gesture.state {
-        case .began:
-            ageSelectionInitialY = selectionView.frame.origin.y
-            ageSelectionCurrentY = ageSelectionInitialY
-            ageSelectionHeight = selectionView.frame.height
-        case .changed:
-            ageSelectionCurrentY = ageSelectionInitialY + translation.y
-            
-            // Sadece yukarı kaydırmaya izin ver
-            if ageSelectionCurrentY > ageSelectionInitialY {
-                selectionView.frame.origin.y = ageSelectionCurrentY
+        let currentSensitivityRaw = UserDefaults.standard.integer(forKey: "userSkinSensitivity")
+        let currentSensitivity = SkinSensitivity(rawValue: currentSensitivityRaw)
+        let currentSensitivityTitle = currentSensitivity?.displayName
+
+        presentBottomSheet(with: SkinSensitivity.allTitles, selectedOption: currentSensitivityTitle) { selected in
+            guard let selectedSensitivity = SkinSensitivity.allCases.first(where: { $0.displayName == selected }) else {
+                return
             }
-        case .ended, .cancelled:
-            let velocity = gesture.velocity(in: view)
-            
-            // Eğer kullanıcı hızlı bir şekilde aşağı kaydırırsa veya yarıdan fazla aşağı kaydırırsa, görünümü kapat
-            if velocity.y > 500 || (ageSelectionCurrentY - ageSelectionInitialY) > (ageSelectionHeight / 2) {
-                hideAgeSelectionView()
-            } else {
-                // Aksi takdirde, görünümü tekrar göster
-                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
-                    selectionView.frame.origin.y = self.ageSelectionInitialY
-                }, completion: nil)
-            }
-        default:
-            break
+
+            UserDefaults.standard.set(selectedSensitivity.rawValue, forKey: "userSkinSensitivity")
+            self.skinSensitivityValueLabel.text = selected
         }
     }
     
-    private func hideAgeSelectionView() {
-        guard let selectionView = ageSelectionView else { return }
-        
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
-            selectionView.transform = CGAffineTransform(translationX: 0, y: self.ageSelectionViewHeight)
-        }, completion: { _ in
-            selectionView.removeFromSuperview()
-            self.ageSelectionView = nil
-            self.ageSelectionTableView = nil
-            self.ageSelectionTitleLabel = nil
-            
-            // Tab bar'ı tekrar göster
-            self.tabBarController?.tabBar.isHidden = false
-        })
-    }
-    
-    // MARK: - UICollectionViewDataSource
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return ageOptions.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AgeCell", for: indexPath)
-        
-        // Hücre içeriğini temizle
-        cell.contentView.subviews.forEach { $0.removeFromSuperview() }
-        
-        // Yaş seçeneğini al
-        let ageOption = ageOptions[indexPath.row]
-        
-        // Yaş aralığını metin olarak belirle
-        var ageText = ""
-        switch ageOption {
-        case .range13to17:
-            ageText = "13-17"
-        case .range18to24:
-            ageText = "18-24"
-        case .range25to34:
-            ageText = "25-34"
-        case .range35to44:
-            ageText = "35-44"
-        case .range45to54:
-            ageText = "45-54"
-        case .range55plus:
-            ageText = "55+"
-        case .none:
-            ageText = "Belirtilmemiş"
-        }
-        
-        // Hücre arka planını ayarla
-        cell.backgroundColor = .white
-        cell.layer.cornerRadius = 8
-        
-        // Eğer bu seçenek zaten seçiliyse, yeşil kenarlık ve onay işareti ekle
-        if ageOption == selectedAgeOption {
-            cell.layer.borderWidth = 1.0
-            cell.layer.borderColor = UIColor(red: 39/255, green: 174/255, blue: 96/255, alpha: 1.0).cgColor
-        } else {
-            cell.layer.borderWidth = 0
-        }
-        
-        // Yaş etiketi
-        let label = UILabel()
-        label.text = ageText
-        label.font = UIFont.systemFont(ofSize: 16)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        cell.contentView.addSubview(label)
-        
-        // Onay işareti (eğer seçiliyse)
-        if ageOption == selectedAgeOption {
-            let checkmarkImageView = UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
-            checkmarkImageView.tintColor = UIColor(red: 39/255, green: 174/255, blue: 96/255, alpha: 1.0)
-            checkmarkImageView.contentMode = .scaleAspectFit
-            checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
-            cell.contentView.addSubview(checkmarkImageView)
-            
-            NSLayoutConstraint.activate([
-                checkmarkImageView.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
-                checkmarkImageView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -10),
-                checkmarkImageView.widthAnchor.constraint(equalToConstant: 20),
-                checkmarkImageView.heightAnchor.constraint(equalToConstant: 20)
-            ])
-        }
-        
-        // Etiket constraint'leri
-        NSLayoutConstraint.activate([
-            label.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
-            label.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
-            label.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -10)
-        ])
-        
-        return cell
-    }
-    
-    // MARK: - UICollectionViewDelegate
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Seçilen yaş seçeneğini güncelle
-        selectedAgeOption = ageOptions[indexPath.row]
-        
-        // Seçilen yaşı UserDefaults'a kaydet
-        if let selectedAge = selectedAgeOption {
-            UserDefaults.standard.set(selectedAge.rawValue, forKey: "userAgeRange")
-            
-            // Yaş etiketini güncelle
-            switch selectedAge {
-            case .range13to17:
-                ageLabel.text = "Yaş: 13-17"
-            case .range18to24:
-                ageLabel.text = "Yaş: 18-24"
-            case .range25to34:
-                ageLabel.text = "Yaş: 25-34"
-            case .range35to44:
-                ageLabel.text = "Yaş: 35-44"
-            case .range45to54:
-                ageLabel.text = "Yaş: 45-54"
-            case .range55plus:
-                ageLabel.text = "Yaş: 55+"
-            case .none:
-                ageLabel.text = "Yaş: Belirtilmemiş"
+    @objc private func editSkinConditionsButtonTapped() {
+        let conditionTitles = SkinCondition.allTitles
+        let currentSelections = selectedSkinConditions.map { $0.title }
+
+        presentBottomSheetMultiSelect(
+            options: conditionTitles,
+            selected: currentSelections
+        ) { selectedOptions in
+            let selected = SkinCondition.allCases.filter { selectedOptions.contains($0.title) }
+            self.selectedSkinConditions = Set(selected)
+
+            let rawValues = selected.map { $0.rawValue }
+            UserDefaults.standard.set(rawValues, forKey: "userSkinConditions")
+
+            self.skinConditionsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+            for condition in selected {
+                let view = self.createConditionView(condition: condition.title)
+                self.skinConditionsStackView.addArrangedSubview(view)
             }
         }
-        
-        // Seçim arayüzünü kapat
-        hideAgeSelectionView()
     }
-} 
+}
+

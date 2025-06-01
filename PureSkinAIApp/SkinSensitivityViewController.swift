@@ -354,10 +354,3 @@ class SkinSensitivityViewController: UIViewController {
     }
 }
 
-// MARK: - Enums
-enum SkinSensitivity: Int {
-    case notSensitive = 0
-    case slightlySensitive = 1
-    case moderatelySensitive = 2
-    case verySensitive = 3
-}

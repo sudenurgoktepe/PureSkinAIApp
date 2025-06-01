@@ -1,10 +1,21 @@
 import UIKit
 
-class SkinConditionsViewController: UIViewController {
+class SkinConditionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - Properties
-    private var selectedConditions: Set<SkinCondition> = []
     var isEditingMode: Bool = false
+    
+    private let conditions: [String] = [
+        "Akne",
+        "Rozasea",
+        "Egzama",
+        "Sedef",
+        "Vitiligo",
+        "Diğer"
+    ]
+    
+    private var selectedConditions: Set<String> = []
+    private var customCondition: String = ""
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -78,6 +89,22 @@ class SkinConditionsViewController: UIViewController {
         return button
     }()
     
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
+        return tableView
+    }()
+    
+    private let customConditionTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Cilt durumunuzu yazın"
+        textField.borderStyle = .roundedRect
+        textField.isHidden = true
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +120,8 @@ class SkinConditionsViewController: UIViewController {
     
     // MARK: - UI Setup
     private func setupUI() {
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = .systemBackground
+        title = "Cilt Durumları"
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -104,12 +132,17 @@ class SkinConditionsViewController: UIViewController {
         contentView.addSubview(gridStackView)
         view.addSubview(continueButton)
         view.addSubview(backButton)
+        view.addSubview(tableView)
+        view.addSubview(customConditionTextField)
         
         setupConstraints()
         setupGrid()
         
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         continueButton.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
+        
+        tableView.dataSource = self
+        tableView.delegate = self
     }
     
     private func setupConstraints() {
@@ -149,7 +182,17 @@ class SkinConditionsViewController: UIViewController {
             continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             continueButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             continueButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            continueButton.heightAnchor.constraint(equalToConstant: 50)
+            continueButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            tableView.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 20),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: customConditionTextField.topAnchor, constant: -20),
+            
+            customConditionTextField.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20),
+            customConditionTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            customConditionTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            customConditionTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -201,12 +244,12 @@ class SkinConditionsViewController: UIViewController {
     @objc private func conditionButtonTapped(_ sender: UIButton) {
         guard let condition = SkinCondition(rawValue: sender.tag) else { return }
         
-        if selectedConditions.contains(condition) {
-            selectedConditions.remove(condition)
+        if selectedConditions.contains(condition.title) {
+            selectedConditions.remove(condition.title)
             sender.backgroundColor = .white
             sender.layer.borderColor = UIColor.lightGray.cgColor
         } else {
-            selectedConditions.insert(condition)
+            selectedConditions.insert(condition.title)
             sender.backgroundColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 0.2)
             sender.layer.borderColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0).cgColor
         }
@@ -218,7 +261,7 @@ class SkinConditionsViewController: UIViewController {
     
     @objc private func continueButtonTapped() {
         // Seçilen cilt durumlarını UserDefaults'a kaydet
-        let conditionValues = selectedConditions.map { $0.rawValue }
+        let conditionValues = Array(selectedConditions)
         UserDefaults.standard.set(conditionValues, forKey: "userSkinConditions")
         
         // Bir sonraki sayfaya geç
@@ -228,8 +271,8 @@ class SkinConditionsViewController: UIViewController {
     
     // MARK: - Helper Methods
     private func loadExistingData() {
-        if let savedConditions = UserDefaults.standard.array(forKey: "userSkinConditions") as? [Int] {
-            selectedConditions = Set(savedConditions.compactMap { SkinCondition(rawValue: $0) })
+        if let savedConditions = UserDefaults.standard.array(forKey: "userSkinConditions") as? [String] {
+            selectedConditions = Set(savedConditions)
             
             // Seçili durumları görsel olarak işaretle
             for rowStack in gridStackView.arrangedSubviews {
@@ -237,7 +280,7 @@ class SkinConditionsViewController: UIViewController {
                     for button in rowStack.arrangedSubviews {
                         if let button = button as? UIButton,
                            let condition = SkinCondition(rawValue: button.tag),
-                           selectedConditions.contains(condition) {
+                           selectedConditions.contains(condition.title) {
                             button.backgroundColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 0.2)
                             button.layer.borderColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0).cgColor
                         }
@@ -246,25 +289,59 @@ class SkinConditionsViewController: UIViewController {
             }
         }
     }
+    
+    // MARK: - UITableViewDataSource
+    @objc func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return conditions.count
+    }
+    
+    @objc func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ConditionCell", for: indexPath)
+        let condition = conditions[indexPath.row]
+        
+        cell.textLabel?.text = condition
+        cell.accessoryType = selectedConditions.contains(condition) ? .checkmark : .none
+        
+        return cell
+    }
+    
+    // MARK: - UITableViewDelegate
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let condition = conditions[indexPath.row]
+        
+        if condition == "Diğer" {
+            customConditionTextField.isHidden = false
+            if !customCondition.isEmpty {
+                selectedConditions.insert(customCondition)
+            }
+        } else {
+            if selectedConditions.contains(condition) {
+                selectedConditions.remove(condition)
+            } else {
+                selectedConditions.insert(condition)
+            }
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+        
+        // Seçilen durumları kaydet
+        saveSelectedConditions()
+    }
+    
+    private func saveSelectedConditions() {
+        var conditionsToSave = selectedConditions
+        if !customCondition.isEmpty {
+            conditionsToSave.insert(customCondition)
+        }
+        UserDefaults.standard.set(Array(conditionsToSave), forKey: "userSkinConditions")
+    }
+    
+    @objc private func customConditionTextFieldDidChange(_ textField: UITextField) {
+        customCondition = textField.text ?? ""
+        if !customCondition.isEmpty {
+            selectedConditions.insert(customCondition)
+        }
+        saveSelectedConditions()
+    }
 }
 
-// MARK: - Enums
-enum SkinCondition: Int, CaseIterable {
-    case eczema = 0
-    case rosacea = 1
-    case psoriasis = 2
-    case hives = 3
-    
-    var title: String {
-        switch self {
-        case .eczema:
-            return "Egzama"
-        case .rosacea:
-            return "Rozasea"
-        case .psoriasis:
-            return "Sedef hastalığı"
-        case .hives:
-            return "Kurdeşen"
-        }
-    }
-} 
+

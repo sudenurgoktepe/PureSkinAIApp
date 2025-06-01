@@ -448,24 +448,3 @@ class UserInfoViewController: UIViewController {
         navigationController?.pushViewController(skinTypeVC, animated: true)
     }
 }
-
-// MARK: - Enums
-enum Gender: Int {
-    case female = 0
-    case male = 1
-}
-
-enum AgeRange: Int {
-    case range13to17 = 0
-    case range18to24 = 1
-    case range25to34 = 2
-    case range35to44 = 3
-    case range45to54 = 4
-    case range55plus = 5
-    case none = -1
-}
-
-enum EditingField {
-    case age
-    case gender
-} 

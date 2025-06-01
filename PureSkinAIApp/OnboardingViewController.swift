@@ -212,9 +212,7 @@ class OnboardingViewController: UIViewController {
             guard let self = self else { return }
             
             // Ana ekrana geçiş
-            let homeVC = HomeViewController()
-            homeVC.modalPresentationStyle = .fullScreen
-            self.present(homeVC, animated: true, completion: nil)
+            navigateToMainScreen()
         }
     }
     
@@ -264,5 +262,65 @@ class OnboardingViewController: UIViewController {
     @objc private func startButtonTapped() {
         let userInfoVC = UserInfoViewController()
         navigationController?.pushViewController(userInfoVC, animated: true)
+    }
+    
+    private func navigateToMainScreen() {
+        // Navigation bar görünümü
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+        
+        // Tab bar controller oluştur
+        let tabBarController = UITabBarController()
+        
+        // Ürünler
+        let productsVC = ProductsViewController()
+        let productsNav = UINavigationController(rootViewController: productsVC)
+        productsNav.navigationBar.standardAppearance = appearance
+        productsNav.navigationBar.scrollEdgeAppearance = appearance
+        productsNav.navigationBar.prefersLargeTitles = false
+        productsNav.navigationBar.isTranslucent = false
+        productsNav.tabBarItem = UITabBarItem(title: "Ürünler", image: UIImage(systemName: "sparkles"), tag: 0)
+        
+        // Rutinler
+        let routinesVC = RoutinesViewController()
+        let routinesNav = UINavigationController(rootViewController: routinesVC)
+        routinesNav.navigationBar.standardAppearance = appearance
+        routinesNav.navigationBar.scrollEdgeAppearance = appearance
+        routinesNav.navigationBar.prefersLargeTitles = false
+        routinesNav.navigationBar.isTranslucent = false
+        routinesNav.tabBarItem = UITabBarItem(title: "Rutinler", image: UIImage(systemName: "calendar"), tag: 1)
+        
+        // Sohbet
+        let chatVC = ChatViewController()
+        let chatNav = UINavigationController(rootViewController: chatVC)
+        chatNav.navigationBar.standardAppearance = appearance
+        chatNav.navigationBar.scrollEdgeAppearance = appearance
+        chatNav.navigationBar.prefersLargeTitles = false
+        chatNav.navigationBar.isTranslucent = false
+        chatNav.tabBarItem = UITabBarItem(title: "Sohbet", image: UIImage(systemName: "message.fill"), tag: 2)
+        
+        // Profil
+        let profileVC = ProfileViewController()
+        let profileNav = UINavigationController(rootViewController: profileVC)
+        profileNav.navigationBar.standardAppearance = appearance
+        profileNav.navigationBar.scrollEdgeAppearance = appearance
+        profileNav.navigationBar.prefersLargeTitles = false
+        profileNav.navigationBar.isTranslucent = false
+        profileNav.tabBarItem = UITabBarItem(title: "Profil", image: UIImage(systemName: "person.fill"), tag: 3)
+        
+        // Tab bar controller ayarları
+        tabBarController.viewControllers = [productsNav, routinesNav, chatNav, profileNav]
+        tabBarController.tabBar.tintColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0)
+        tabBarController.tabBar.unselectedItemTintColor = .gray
+        
+        // Tab bar controller'ı root view controller olarak ayarla
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            window.rootViewController = tabBarController
+            UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: nil)
+        }
     }
 }

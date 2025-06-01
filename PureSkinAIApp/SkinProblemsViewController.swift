@@ -271,47 +271,4 @@ class SkinProblemsViewController: UIViewController {
     }
 }
 
-// MARK: - Enums
-enum SkinProblem: Int {
-    case dullSkin = 0
-    case sensitiveSkin = 1
-    case veryDrySkin = 2
-    case acneScars = 3
-    case redness = 4
-    case pores = 5
-    case unevenTexture = 6
-    case fineLines = 7
-    case wrinkles = 8
-    case lossOfElasticity = 9
-    case swelling = 10
-    case darkCircles = 11
-    
-    var title: String {
-        switch self {
-        case .dullSkin:
-            return "Donuk Cilt"
-        case .sensitiveSkin:
-            return "Hassas Cilt"
-        case .veryDrySkin:
-            return "Çok Kuru Cilt"
-        case .acneScars:
-            return "Akne İzleri"
-        case .redness:
-            return "Kızarıklık"
-        case .pores:
-            return "Gözenekler"
-        case .unevenTexture:
-            return "Düzensiz Doku"
-        case .fineLines:
-            return "İnce Çizgiler"
-        case .wrinkles:
-            return "Kırışıklıklar"
-        case .lossOfElasticity:
-            return "Esneklik Kaybı"
-        case .swelling:
-            return "Şişkinlik"
-        case .darkCircles:
-            return "Göz Altı Morlukları"
-        }
-    }
-} 
+

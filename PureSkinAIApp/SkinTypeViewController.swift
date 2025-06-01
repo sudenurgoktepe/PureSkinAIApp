@@ -326,11 +326,4 @@ class SkinTypeViewController: UIViewController {
     }
 }
 
-// MARK: - Enums
-enum SkinType: Int {
-    case normal = 0
-    case dry = 1
-    case oily = 2
-    case combination = 3
-    case sensitive = 4
-} 
+
