@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9E04A0342DECFD3700B9B9D7 /* RoutineCategoryBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04A0332DECFD3700B9B9D7 /* RoutineCategoryBottomSheet.swift */; };
+		9E0524822E0C7A98009ABF53 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0524812E0C7A98009ABF53 /* Models.swift */; };
 		9E3450692DAB21C100531EBB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3450682DAB21C100531EBB /* SettingsViewController.swift */; };
 		9E58E61C2D975B3A009F59EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E58E61B2D975B3A009F59EE /* AppDelegate.swift */; };
 		9E58E61E2D975B3A009F59EE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E58E61D2D975B3A009F59EE /* SceneDelegate.swift */; };
@@ -23,6 +24,12 @@
 		9EA62E4A2DC575D10062EDF0 /* BottomSheetMultiSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA62E492DC575D10062EDF0 /* BottomSheetMultiSelectViewController.swift */; };
 		9EA62E4C2DC59B910062EDF0 /* RoutineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA62E4B2DC59B910062EDF0 /* RoutineTableViewCell.swift */; };
 		9EACC7742DC4107D00290FA4 /* ProfileEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EACC7732DC4107D00290FA4 /* ProfileEnums.swift */; };
+		9EB029F82E1E8F8500549EF7 /* SelfiePromptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB029F72E1E8F8500549EF7 /* SelfiePromptCell.swift */; };
+		9EB029FE2E1EBCAD00549EF7 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB029FD2E1EBCAD00549EF7 /* AnalysisViewController.swift */; };
+		9EB02A002E1EBCD800549EF7 /* pureskinai-163b1a8ff534.json in Resources */ = {isa = PBXBuildFile; fileRef = 9EB029FF2E1EBCD800549EF7 /* pureskinai-163b1a8ff534.json */; };
+		9EB02A042E1EC20900549EF7 /* CameraOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB02A032E1EC20900549EF7 /* CameraOverlayView.swift */; };
+		9EB02A062E1EC4F000549EF7 /* CustomCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB02A052E1EC4F000549EF7 /* CustomCameraViewController.swift */; };
+		9EB02A082E1ECCAD00549EF7 /* AnalysisLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB02A072E1ECCAD00549EF7 /* AnalysisLoadingViewController.swift */; };
 		9EE998B82D9C63CB002A509C /* SkinTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE998B72D9C63CB002A509C /* SkinTypeViewController.swift */; };
 		9EE998BA2D9C63E2002A509C /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE998B92D9C63E2002A509C /* UserInfoViewController.swift */; };
 		9EE998BC2D9C8D71002A509C /* SkinSensitivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE998BB2D9C8D71002A509C /* SkinSensitivityViewController.swift */; };
@@ -33,11 +40,14 @@
 		9EE998C62D9CBB67002A509C /* RoutinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE998C52D9CBB67002A509C /* RoutinesViewController.swift */; };
 		9EE998C82D9CBB8A002A509C /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE998C72D9CBB8A002A509C /* ChatViewController.swift */; };
 		9EE998CA2D9CBBAD002A509C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE998C92D9CBBAD002A509C /* ProfileViewController.swift */; };
+		9EF05C1E2E0DD78800E75978 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF05C1D2E0DD78800E75978 /* TabBarController.swift */; };
+		9EF9F49D2DFDEBF10037D005 /* CollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF9F49C2DFDEBF10037D005 /* CollectionTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9E04A02C2DECEC8600B9B9D7 /* PureSkinAIApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PureSkinAIApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E04A0332DECFD3700B9B9D7 /* RoutineCategoryBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCategoryBottomSheet.swift; sourceTree = "<group>"; };
+		9E0524812E0C7A98009ABF53 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		9E3450682DAB21C100531EBB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9E58E61B2D975B3A009F59EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E58E61D2D975B3A009F59EE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,6 +63,12 @@
 		9EA62E492DC575D10062EDF0 /* BottomSheetMultiSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetMultiSelectViewController.swift; sourceTree = "<group>"; };
 		9EA62E4B2DC59B910062EDF0 /* RoutineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTableViewCell.swift; sourceTree = "<group>"; };
 		9EACC7732DC4107D00290FA4 /* ProfileEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEnums.swift; sourceTree = "<group>"; };
+		9EB029F72E1E8F8500549EF7 /* SelfiePromptCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfiePromptCell.swift; sourceTree = "<group>"; };
+		9EB029FD2E1EBCAD00549EF7 /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
+		9EB029FF2E1EBCD800549EF7 /* pureskinai-163b1a8ff534.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "pureskinai-163b1a8ff534.json"; sourceTree = "<group>"; };
+		9EB02A032E1EC20900549EF7 /* CameraOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraOverlayView.swift; sourceTree = "<group>"; };
+		9EB02A052E1EC4F000549EF7 /* CustomCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCameraViewController.swift; sourceTree = "<group>"; };
+		9EB02A072E1ECCAD00549EF7 /* AnalysisLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisLoadingViewController.swift; sourceTree = "<group>"; };
 		9EE998B72D9C63CB002A509C /* SkinTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinTypeViewController.swift; sourceTree = "<group>"; };
 		9EE998B92D9C63E2002A509C /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		9EE998BB2D9C8D71002A509C /* SkinSensitivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinSensitivityViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +79,8 @@
 		9EE998C52D9CBB67002A509C /* RoutinesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinesViewController.swift; sourceTree = "<group>"; };
 		9EE998C72D9CBB8A002A509C /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		9EE998C92D9CBBAD002A509C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		9EF05C1D2E0DD78800E75978 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		9EF9F49C2DFDEBF10037D005 /* CollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +132,15 @@
 				9EA62E492DC575D10062EDF0 /* BottomSheetMultiSelectViewController.swift */,
 				9EA62E4B2DC59B910062EDF0 /* RoutineTableViewCell.swift */,
 				9E04A0332DECFD3700B9B9D7 /* RoutineCategoryBottomSheet.swift */,
+				9EF9F49C2DFDEBF10037D005 /* CollectionTableViewCell.swift */,
+				9E0524812E0C7A98009ABF53 /* Models.swift */,
+				9EF05C1D2E0DD78800E75978 /* TabBarController.swift */,
+				9EB029F72E1E8F8500549EF7 /* SelfiePromptCell.swift */,
+				9EB029FD2E1EBCAD00549EF7 /* AnalysisViewController.swift */,
+				9EB029FF2E1EBCD800549EF7 /* pureskinai-163b1a8ff534.json */,
+				9EB02A032E1EC20900549EF7 /* CameraOverlayView.swift */,
+				9EB02A052E1EC4F000549EF7 /* CustomCameraViewController.swift */,
+				9EB02A072E1ECCAD00549EF7 /* AnalysisLoadingViewController.swift */,
 			);
 			path = PureSkinAIApp;
 			sourceTree = "<group>";
@@ -184,6 +211,7 @@
 			files = (
 				9E58E6282D975B3B009F59EE /* LaunchScreen.storyboard in Resources */,
 				9E58E6252D975B3B009F59EE /* Assets.xcassets in Resources */,
+				9EB02A002E1EBCD800549EF7 /* pureskinai-163b1a8ff534.json in Resources */,
 				9E58E6232D975B3A009F59EE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,20 +225,28 @@
 			files = (
 				9E58E61C2D975B3A009F59EE /* AppDelegate.swift in Sources */,
 				9EE998BC2D9C8D71002A509C /* SkinSensitivityViewController.swift in Sources */,
+				9EF9F49D2DFDEBF10037D005 /* CollectionTableViewCell.swift in Sources */,
+				9EB02A062E1EC4F000549EF7 /* CustomCameraViewController.swift in Sources */,
+				9E0524822E0C7A98009ABF53 /* Models.swift in Sources */,
 				9EE998C82D9CBB8A002A509C /* ChatViewController.swift in Sources */,
 				9EA62E482DC5718D0062EDF0 /* BottomSheetViewController.swift in Sources */,
+				9EB029F82E1E8F8500549EF7 /* SelfiePromptCell.swift in Sources */,
 				9EA62E4C2DC59B910062EDF0 /* RoutineTableViewCell.swift in Sources */,
 				9EE998C42D9CBB32002A509C /* ProductsViewController.swift in Sources */,
 				9EE998C22D9C9DEC002A509C /* SkinAnalysisViewController.swift in Sources */,
 				9EE998C62D9CBB67002A509C /* RoutinesViewController.swift in Sources */,
 				9E58E6382D97686F009F59EE /* OnboardingViewModel.swift in Sources */,
 				9EE998CA2D9CBBAD002A509C /* ProfileViewController.swift in Sources */,
+				9EB029FE2E1EBCAD00549EF7 /* AnalysisViewController.swift in Sources */,
 				9E58E61E2D975B3A009F59EE /* SceneDelegate.swift in Sources */,
 				9E58E63A2D976897009F59EE /* SplashViewModel.swift in Sources */,
 				9EE998BA2D9C63E2002A509C /* UserInfoViewController.swift in Sources */,
 				9EE998B82D9C63CB002A509C /* SkinTypeViewController.swift in Sources */,
 				9E58E6342D976811009F59EE /* OnboardingViewController.swift in Sources */,
 				9EA62E4A2DC575D10062EDF0 /* BottomSheetMultiSelectViewController.swift in Sources */,
+				9EB02A082E1ECCAD00549EF7 /* AnalysisLoadingViewController.swift in Sources */,
+				9EB02A042E1EC20900549EF7 /* CameraOverlayView.swift in Sources */,
+				9EF05C1E2E0DD78800E75978 /* TabBarController.swift in Sources */,
 				9E58E6362D976840009F59EE /* SplashViewController.swift in Sources */,
 				9EE998BE2D9C8D88002A509C /* SkinProblemsViewController.swift in Sources */,
 				9EE998C02D9C8DA1002A509C /* SkinConditionsViewController.swift in Sources */,
@@ -371,6 +407,9 @@
 				DEVELOPMENT_TEAM = 93NU47H8BT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PureSkinAIApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Cilt analizi yapmak için kameraya erişim gereklidir.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -399,6 +438,9 @@
 				DEVELOPMENT_TEAM = 93NU47H8BT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PureSkinAIApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Cilt analizi yapmak için kameraya erişim gereklidir.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

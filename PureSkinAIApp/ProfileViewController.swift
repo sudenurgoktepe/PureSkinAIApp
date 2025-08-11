@@ -13,7 +13,6 @@ class ProfileViewController: UIViewController {
         present(bottomSheetVC, animated: false)
     }
 
-    
     func presentBottomSheetMultiSelect(options: [String], selected: [String], completion: @escaping ([String]) -> Void) {
         let vc = BottomSheetMultiSelectViewController()
         vc.options = options
@@ -341,31 +340,13 @@ class ProfileViewController: UIViewController {
         setupUI()
         loadUserData()
         
-        // Navigation bar ayarları
         title = "Profil"
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingsButton)
         
         // Navigation bar'ı görünür yap
         navigationController?.setNavigationBarHidden(false, animated: false)
-        
-        // Navigation bar özelleştirmeleri
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .backgroundcolor
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.labelPrimary]
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.tintColor = .black
-        
-        // Tab bar arka plan rengi
-        let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.configureWithOpaqueBackground()
-        tabBarAppearance.backgroundColor = .backgroundcolor
-        tabBarController?.tabBar.standardAppearance = tabBarAppearance
-        tabBarController?.tabBar.scrollEdgeAppearance = tabBarAppearance
+       
     }
     
     // MARK: - UI Setup

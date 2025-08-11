@@ -11,6 +11,7 @@ class RoutineTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
+        backgroundColor = .clear
         selectedBackgroundView = UIView()
         selectedBackgroundView?.backgroundColor = .clear
     }
@@ -18,6 +19,7 @@ class RoutineTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.layer.cornerRadius = 15
@@ -25,68 +27,59 @@ class RoutineTableViewCell: UITableViewCell {
 
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.systemGray4.cgColor
+        contentView.backgroundColor = .backgroundcolor2
 
-        contentView.backgroundColor = .backgroundcolor
-
-      
         let padding: CGFloat = 12
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: padding / 2, left: 16, bottom: padding / 2, right: 16))
     }
 
     private func setupViews() {
-        iconImageView.tintColor = .systemYellow
-        iconImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(iconImageView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(subtitleLabel)
+        contentView.addSubview(circleView)
+        circleView.addSubview(checkmarkImageView)
+
+        iconImageView.tintColor = .systemYellow
+        iconImageView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16)
+            make.centerY.equalToSuperview()
+            make.size.equalTo(24)
+        }
+
+        circleView.layer.cornerRadius = 12
+        circleView.layer.borderWidth = 1
+        circleView.layer.borderColor = UIColor.systemGray3.cgColor
+        circleView.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(16)
+            make.centerY.equalToSuperview()
+            make.size.equalTo(24)
+        }
+
+        checkmarkImageView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(14)
+        }
 
         titleLabel.font = .systemFont(ofSize: 16, weight: .semibold)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(titleLabel)
+        titleLabel.numberOfLines = 1
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(12)
+            make.leading.equalTo(iconImageView.snp.trailing).offset(12)
+            make.trailing.lessThanOrEqualTo(circleView.snp.leading).offset(-8)
+        }
 
         subtitleLabel.font = .systemFont(ofSize: 13)
         subtitleLabel.textColor = .systemGray
-        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(subtitleLabel)
-
-        circleView.layer.borderColor = UIColor.systemGray3.cgColor
-        circleView.layer.borderWidth = 1
-        circleView.layer.cornerRadius = 12
-        circleView.clipsToBounds = true 
-        circleView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(circleView)
-
-        checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
-        checkmarkImageView.image = UIImage(systemName: "checkmark")
-        checkmarkImageView.tintColor = .white
-        checkmarkImageView.isHidden = true
-        checkmarkImageView.contentMode = .scaleAspectFit
-        circleView.addSubview(checkmarkImageView)
-
-        NSLayoutConstraint.activate([
-            iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            iconImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            iconImageView.widthAnchor.constraint(equalToConstant: 24),
-            iconImageView.heightAnchor.constraint(equalToConstant: 24),
-
-            titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 12),
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: circleView.leadingAnchor, constant: -12),
-
-            subtitleLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
-            subtitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
-
-            circleView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            circleView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            circleView.widthAnchor.constraint(equalToConstant: 24),
-            circleView.heightAnchor.constraint(equalToConstant: 24),
-
-    
-            checkmarkImageView.centerXAnchor.constraint(equalTo: circleView.centerXAnchor),
-            checkmarkImageView.centerYAnchor.constraint(equalTo: circleView.centerYAnchor),
-            checkmarkImageView.widthAnchor.constraint(equalToConstant: 14),
-            checkmarkImageView.heightAnchor.constraint(equalToConstant: 14)
-        ])
+        subtitleLabel.numberOfLines = 1
+        subtitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(4)
+            make.leading.equalTo(titleLabel)
+            make.trailing.lessThanOrEqualTo(circleView.snp.leading).offset(-8)
+            make.bottom.lessThanOrEqualToSuperview().inset(12).priority(.medium)
+        }
     }
+
 
     private let checkmarkImageView: UIImageView = {
         let imageView = UIImageView()
@@ -99,7 +92,7 @@ class RoutineTableViewCell: UITableViewCell {
 
     func configure(with step: RoutineStep) {
         iconImageView.image = UIImage(named: step.iconName)
-        subtitleLabel.text = step.subtitle
+        subtitleLabel.text = step.subtitle.isEmpty ? "Bu rutin için ürün seçilmedi" : step.subtitle
 
         if step.isCompleted {
             titleLabel.textColor = .systemGray
@@ -125,6 +118,4 @@ class RoutineTableViewCell: UITableViewCell {
             checkmarkImageView.isHidden = true
         }
     }
-
-
 }
