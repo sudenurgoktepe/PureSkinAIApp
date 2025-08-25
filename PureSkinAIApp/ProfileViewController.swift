@@ -111,7 +111,7 @@ class ProfileViewController: UIViewController {
     private let skinAnalysisCard: UIView = {
         let view = UIView()
         view.backgroundColor = .backgroundcolor2
-        view.layer.cornerRadius = 15
+        view.layer.cornerRadius = 17
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.1
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -132,29 +132,19 @@ class ProfileViewController: UIViewController {
     private let addSelfieButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Selfie Ekle", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.backgroundColor = UIColor(red: 39/255, green: 174/255, blue: 96/255, alpha: 1.0)
-        button.layer.cornerRadius = 10
-        
-        // Kamera ikonu ekle
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 16)
-        let image = UIImage(systemName: "camera.fill", withConfiguration: imageConfig)
-        button.setImage(image, for: .normal)
-        button.tintColor = .white
-        
-        // İkon ve metin arasına boşluk ekle
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 10)
-        
+        button.layer.cornerRadius = 25
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private let selfieDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "Cilt ilerlemenizi takip etmek için selfie ekleyin"
+        label.text = "Cildinizin durumunu takip etmek için selfie ekleyin"
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 1.0)
+        label.textColor = .systemGray
         label.textAlignment = .center
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -165,7 +155,7 @@ class ProfileViewController: UIViewController {
     private let skinTypeCard: UIView = {
         let view = UIView()
         view.backgroundColor = .backgroundcolor2
-        view.layer.cornerRadius = 15
+        view.layer.cornerRadius = 17
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.1
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -185,7 +175,7 @@ class ProfileViewController: UIViewController {
     
     private let skinTypeValueLabel: UILabel = {
         let label = UILabel()
-        label.text = ""
+        label.text = "Belirtilmemiş"
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = .labelPrimary
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -194,11 +184,8 @@ class ProfileViewController: UIViewController {
     
     private let skinTypeIconImageView: UIImageView = {
         let imageView = UIImageView()
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 24)
-        let image = UIImage(systemName: "drop.fill", withConfiguration: imageConfig)
-        imageView.image = image
-        imageView.tintColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0)
         imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -217,7 +204,7 @@ class ProfileViewController: UIViewController {
     private let skinProblemsCard: UIView = {
         let view = UIView()
         view.backgroundColor = .backgroundcolor2
-        view.layer.cornerRadius = 15
+        view.layer.cornerRadius = 17
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.1
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -238,7 +225,7 @@ class ProfileViewController: UIViewController {
     private let skinProblemsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 10
+        stackView.spacing = 8
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -257,7 +244,7 @@ class ProfileViewController: UIViewController {
     private let skinSensitivityCard: UIView = {
         let view = UIView()
         view.backgroundColor = .backgroundcolor2
-        view.layer.cornerRadius = 15
+        view.layer.cornerRadius = 17
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.1
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -277,7 +264,7 @@ class ProfileViewController: UIViewController {
     
     private let skinSensitivityValueLabel: UILabel = {
         let label = UILabel()
-        label.text = ""
+        label.text = "Belirtilmemiş"
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = .labelPrimary
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -293,12 +280,12 @@ class ProfileViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-   
-    // MARK: - Bölüm 6: Cilt Durumlarınız
+    
+    // MARK: - Bölüm 6: Cilt Durumları
     private let skinConditionsCard: UIView = {
         let view = UIView()
         view.backgroundColor = .backgroundcolor2
-        view.layer.cornerRadius = 15
+        view.layer.cornerRadius = 17
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.1
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -309,7 +296,7 @@ class ProfileViewController: UIViewController {
     
     private let skinConditionsTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Cilt Durumlarınız"
+        label.text = "Cilt Durumları"
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         label.textColor = .labelPrimary
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -319,7 +306,7 @@ class ProfileViewController: UIViewController {
     private let skinConditionsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 10
+        stackView.spacing = 8
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -549,24 +536,24 @@ class ProfileViewController: UIViewController {
             
             genderLabel.text = "Cinsiyet: \(gender == .female ? "Kadın" : "Erkek")"
             
-            switch ageRange {
-            case .range13to17:
-                ageLabel.text = "Yaş: 13-17"
-            case .range18to24:
-                ageLabel.text = "Yaş: 18-24"
-            case .range25to34:
-                ageLabel.text = "Yaş: 25-34"
-            case .range35to44:
-                ageLabel.text = "Yaş: 35-44"
-            case .range45to54:
-                ageLabel.text = "Yaş: 45-54"
-            case .range55plus:
-                ageLabel.text = "Yaş: 55+"
-            case .none:
-                ageLabel.text = "Yaş: Belirtilmemiş"
-            case nil:
-                ageLabel.text = "Yaş: Belirtilmemiş"
-            case .some(.none):
+            if let ageRange = ageRange {
+                switch ageRange {
+                case .range13to17:
+                    ageLabel.text = "Yaş: 13-17"
+                case .range18to24:
+                    ageLabel.text = "Yaş: 18-24"
+                case .range25to34:
+                    ageLabel.text = "Yaş: 25-34"
+                case .range35to44:
+                    ageLabel.text = "Yaş: 35-44"
+                case .range45to54:
+                    ageLabel.text = "Yaş: 45-54"
+                case .range55plus:
+                    ageLabel.text = "Yaş: 55+"
+                case .none:
+                    ageLabel.text = "Yaş: Belirtilmemiş"
+                }
+            } else {
                 ageLabel.text = "Yaş: Belirtilmemiş"
             }
         }

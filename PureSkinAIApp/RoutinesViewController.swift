@@ -49,7 +49,7 @@ class RoutinesViewController: UIViewController {
     private let routineSwitch: UISegmentedControl = {
         let control = UISegmentedControl(items: ["Sabah", "Akşam"])
         control.selectedSegmentIndex = 0
-        control.addTarget(self, action: #selector(didChangeRoutineType(_:)), for: .valueChanged)
+        control.addTarget(nil, action: #selector(didChangeRoutineType(_:)), for: .valueChanged)
         return control
     }()
 
@@ -93,7 +93,7 @@ class RoutinesViewController: UIViewController {
         button.setTitleColor(.systemGreen, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         button.isHidden = true
-        button.addTarget(self, action: #selector(didTapGoToToday), for: .touchUpInside)
+        button.addTarget(nil, action: #selector(didTapGoToToday), for: .touchUpInside)
         return button
     }()
     
@@ -215,8 +215,9 @@ class RoutinesViewController: UIViewController {
 
         markCompletedStepsForSelectedDate()
         updateTodayLabel()
-        calendarStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        setupCalendar()
+        // Sonsuz döngüyü önlemek için setupCalendar'ı kaldırıyoruz
+        // calendarStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        // setupCalendar()
         tableView.reloadData()
         updateEmptyStateLabel()
         updateCompletedCountLabel()
@@ -383,8 +384,9 @@ class RoutinesViewController: UIViewController {
         
         var streak = 0
         var dayOffset = 0
+        let maxDaysToCheck = 365 // Sonsuz döngüyü önlemek için maksimum gün sayısı
 
-        while true {
+        while dayOffset < maxDaysToCheck {
             guard let date = calendar.date(byAdding: .day, value: -dayOffset, to: Date()) else { break }
             let dateStr = formatter.string(from: date)
 
@@ -439,6 +441,7 @@ class RoutinesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        // setupCalendar setupUI içinde çağrılıyor, burada tekrar çağırmaya gerek yok
         navigationController?.navigationBar.isHidden = true
         tableView.dataSource = self
         tableView.delegate = self
@@ -462,8 +465,9 @@ class RoutinesViewController: UIViewController {
         markCompletedStepsForSelectedDate()
         updateCompletedCountLabel()
         tableView.reloadData()
-        calendarStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        setupCalendar()
+        // Sonsuz döngüyü önlemek için setupCalendar'ı kaldırıyoruz
+        // calendarStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        // setupCalendar()
         updateTodayLabel()
         updateEmptyStateLabel()
     }
