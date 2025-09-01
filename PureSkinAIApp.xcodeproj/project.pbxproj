@@ -32,6 +32,8 @@
 		9EA62E482DC5718D0062EDF0 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA62E472DC5718D0062EDF0 /* BottomSheetViewController.swift */; };
 		9EA62E4A2DC575D10062EDF0 /* BottomSheetMultiSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA62E492DC575D10062EDF0 /* BottomSheetMultiSelectViewController.swift */; };
 		9EA62E4C2DC59B910062EDF0 /* RoutineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA62E4B2DC59B910062EDF0 /* RoutineTableViewCell.swift */; };
+		9EA7727F2E5CD52C00851E3B /* AddProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA7727E2E5CD52C00851E3B /* AddProductViewController.swift */; };
+		9EA772812E5CD6E600851E3B /* AddProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA772802E5CD6E600851E3B /* AddProductCell.swift */; };
 		9EACC7742DC4107D00290FA4 /* ProfileEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EACC7732DC4107D00290FA4 /* ProfileEnums.swift */; };
 		9EB029F82E1E8F8500549EF7 /* SelfiePromptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB029F72E1E8F8500549EF7 /* SelfiePromptCell.swift */; };
 		9EB029FE2E1EBCAD00549EF7 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB029FD2E1EBCAD00549EF7 /* AnalysisViewController.swift */; };
@@ -79,6 +81,8 @@
 		9EA62E472DC5718D0062EDF0 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		9EA62E492DC575D10062EDF0 /* BottomSheetMultiSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetMultiSelectViewController.swift; sourceTree = "<group>"; };
 		9EA62E4B2DC59B910062EDF0 /* RoutineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTableViewCell.swift; sourceTree = "<group>"; };
+		9EA7727E2E5CD52C00851E3B /* AddProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductViewController.swift; sourceTree = "<group>"; };
+		9EA772802E5CD6E600851E3B /* AddProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductCell.swift; sourceTree = "<group>"; };
 		9EACC7732DC4107D00290FA4 /* ProfileEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEnums.swift; sourceTree = "<group>"; };
 		9EB029F72E1E8F8500549EF7 /* SelfiePromptCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfiePromptCell.swift; sourceTree = "<group>"; };
 		9EB029FD2E1EBCAD00549EF7 /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 				9E974B102E534CB400167D54 /* AnalysisHistoryCell.swift */,
 				9E974B122E53543700167D54 /* Extensions.swift */,
 				9E974B142E538F7800167D54 /* EmptyAnalysisView.swift */,
+				9EA7727E2E5CD52C00851E3B /* AddProductViewController.swift */,
+				9EA772802E5CD6E600851E3B /* AddProductCell.swift */,
 			);
 			path = PureSkinAIApp;
 			sourceTree = "<group>";
@@ -252,6 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E58E61C2D975B3A009F59EE /* AppDelegate.swift in Sources */,
+				9EA772812E5CD6E600851E3B /* AddProductCell.swift in Sources */,
 				9EE998BC2D9C8D71002A509C /* SkinSensitivityViewController.swift in Sources */,
 				9EF9F49D2DFDEBF10037D005 /* CollectionTableViewCell.swift in Sources */,
 				9EB02A062E1EC4F000549EF7 /* CustomCameraViewController.swift in Sources */,
@@ -286,6 +293,7 @@
 				9E58E6362D976840009F59EE /* SplashViewController.swift in Sources */,
 				9EE998BE2D9C8D88002A509C /* SkinProblemsViewController.swift in Sources */,
 				9EE998C02D9C8DA1002A509C /* SkinConditionsViewController.swift in Sources */,
+				9EA7727F2E5CD52C00851E3B /* AddProductViewController.swift in Sources */,
 				9EACC7742DC4107D00290FA4 /* ProfileEnums.swift in Sources */,
 				9E04A0342DECFD3700B9B9D7 /* RoutineCategoryBottomSheet.swift in Sources */,
 				9E3450692DAB21C100531EBB /* SettingsViewController.swift in Sources */,
