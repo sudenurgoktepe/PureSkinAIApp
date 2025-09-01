@@ -4,8 +4,11 @@ import SnapKit
 
 var selectedDate: Date = Date()
 class RoutineCategoryBottomSheet: UIViewController {
+    
+    private var categories: [String] = []
+    private var itemsByCategory: [String: [String]] = [:]
 
-    private let categories = ["Temizleme", "Toner/Spray", "Tedavi", "Nemlendirici", "Koruma", "Diğer"]
+
     var isMorningRoutine: Bool = true
     var selectedDate: Date = Date()
     private var expandedSection: Int? = nil
@@ -13,14 +16,7 @@ class RoutineCategoryBottomSheet: UIViewController {
     private var addButton: UIButton?
     private var selectedItemName: String?
 
-    private let itemsByCategory: [String: [String]] = [
-        "Temizleme": ["Yağ Bazlı Temizleme", "Su Bazlı Temizleme", "Misel Su ile Temizleme", "Nemlendirici Temizleyici Uygula", "Temizleme Sütü Uygula", "Temizleme Balmi Uygula", "Temizleme Kremi Uygula","Köpük Temizleyici"],
-        "Toner/Spray": ["Hassas Tonik", "Nem Spreyi","Peeling Tonik(AHA/BHA)","Sıkılaştırıcı Tonik"],
-        "Tedavi": ["Akne Karşıtı", "Leke Serumu","C Vitamini Serumu","Retinol","Hyaluronik Asit","Niacinamide","Sivilce Jeli","Leke Açıcı Serum","Göz Altı Serumu"],
-        "Nemlendirici": ["Hafif Nemlendirici Jel", "Yoğun Nemlendirici Krem","Uyku Maskesi","Göz Kremi"],
-        "Koruma": ["GKF 50+", "GKF 30+","SPF Stick"],
-        "Diğer": ["Yüz Masajı", "Maske","Gua Sha"]
-    ]
+
  
     private let itemDescriptions: [String: String] = [
         // Temizleme
@@ -121,7 +117,22 @@ class RoutineCategoryBottomSheet: UIViewController {
         setupUI()
         titleLabel.text = isMorningRoutine ? "Sabah Rutinine Ekle" : "Akşam Rutinine Ekle"
 
+        reloadCategories()
+
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(reloadCategories),
+            name: Notification.Name("CategoryUpdated"),
+            object: nil)
     }
+    
+    @objc private func reloadCategories() {
+        let stored = CategoryStore.load()
+        self.itemsByCategory = stored
+        self.categories = Array(stored.keys)
+        tableView.reloadData()
+    }
+
+
     
     private func setupUI() {
         view.backgroundColor = .backgroundcolor
@@ -174,7 +185,14 @@ class RoutineCategoryBottomSheet: UIViewController {
         title.textAlignment = .left
 
         let desc = UILabel()
-        desc.text = itemDescriptions[item] ?? ""
+
+        let userDescriptions = UserDefaults.standard.dictionary(forKey: "productDescriptions") as? [String: String]
+        if let customDesc = userDescriptions?[item], !customDesc.isEmpty {
+            desc.text = customDesc
+        } else {
+            desc.text = itemDescriptions[item] ?? ""
+        }
+        
         desc.numberOfLines = 0
         desc.font = UIFont.systemFont(ofSize: 14)
         desc.textColor = .darkGray
@@ -308,14 +326,10 @@ class RoutineCategoryBottomSheet: UIViewController {
         let allDays = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"]
 
         if selectedDays == Set(allDays) {
-            // Zaten hepsi seçiliyse -> Hepsini kaldır
             selectedDays.removeAll()
         } else {
-            // Değilse -> Hepsini seç
             selectedDays = Set(allDays)
         }
-
-        // UI buton ikonlarını güncelle
         for button in dayButtons {
             if let day = button.title(for: .normal), selectedDays.contains(day) {
                 button.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
@@ -421,7 +435,6 @@ extension RoutineCategoryBottomSheet: UITableViewDelegate, UITableViewDataSource
             let isExpanded = expandedSection == indexPath.section
             let arrowImage = UIImage(systemName: isExpanded ? "chevron.down" : "chevron.right")
             
-            // Var olanları temizle (çift eklenmesin)
             cell.contentView.subviews.forEach { if $0 is UIImageView { $0.removeFromSuperview() } }
             
             let arrow = UIImageView(image: arrowImage)

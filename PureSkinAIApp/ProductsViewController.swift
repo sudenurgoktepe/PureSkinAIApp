@@ -13,7 +13,7 @@ class ProductsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData() // geri dönüşte güncellensin
+        tableView.reloadData()
     }
 
     // MARK: - Navigation Title
@@ -42,9 +42,8 @@ class ProductsViewController: UIViewController {
         tableView.backgroundColor = .backgroundcolor
         
         tableView.register(AnalysisHistoryCell.self, forCellReuseIdentifier: AnalysisHistoryCell.identifier)
-        tableView.register(AddProductCell.self, forCellReuseIdentifier: AddProductCell.identifier)
+        tableView.register(ProductListCell.self, forCellReuseIdentifier: ProductListCell.identifier)
 
-        // Header image
         let headerImageView = UIImageView()
         headerImageView.image = UIImage(named: "homeimage")
         headerImageView.contentMode = .scaleAspectFill
@@ -61,16 +60,11 @@ class ProductsViewController: UIViewController {
 extension ProductsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2 // 0: Analiz Geçmişi, 1: Ürün Ekle
+        return 2
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            let data = SkinAnalysisStore.load()
-            return data.isEmpty ? 1 : 1
-        } else {
-            return 1 // ürün ekle bölümü
-        }
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -125,29 +119,33 @@ extension ProductsViewController: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
         } else {
-            // Özel AddProductCell
-            let cell = tableView.dequeueReusableCell(withIdentifier: AddProductCell.identifier, for: indexPath) as! AddProductCell
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: ProductListCell.identifier, for: indexPath) as! ProductListCell
+            let products = ProductStore.load()
+            cell.configure(with: products)
+        
+            cell.onAddTapped = { [weak self] in
+                let vc = AddProductViewController()
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+            cell.onDeleteProduct = { product in
+                ProductStore.delete(product)
+                tableView.reloadData()
+            }
+        
+            cell.onProductTapped = { [weak self] product in
+                let detailVC = ProductDetailViewController(product: product)
+                self?.navigationController?.pushViewController(detailVC, animated: true)
+            }
+            
             return cell
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        if indexPath.section == 1 {
-            let vc = AddProductViewController()
-            navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-
-    // Heights
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 1 {
-            return 180 
-        }
         return 230
     }
-
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let container = UIView()

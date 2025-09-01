@@ -10,6 +10,12 @@
 		9E04A0342DECFD3700B9B9D7 /* RoutineCategoryBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04A0332DECFD3700B9B9D7 /* RoutineCategoryBottomSheet.swift */; };
 		9E0524822E0C7A98009ABF53 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0524812E0C7A98009ABF53 /* Models.swift */; };
 		9E3450692DAB21C100531EBB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3450682DAB21C100531EBB /* SettingsViewController.swift */; };
+		9E3550052E66105F00E81D00 /* SavedProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3550042E66105F00E81D00 /* SavedProduct.swift */; };
+		9E3550072E66108600E81D00 /* ProductItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3550062E66108600E81D00 /* ProductItemCell.swift */; };
+		9E3550092E6610A200E81D00 /* ProductListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3550082E6610A200E81D00 /* ProductListCell.swift */; };
+		9E35500B2E6611A000E81D00 /* AddProductCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E35500A2E6611A000E81D00 /* AddProductCollectionCell.swift */; };
+		9E35500D2E66279000E81D00 /* CategoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E35500C2E66279000E81D00 /* CategoryStore.swift */; };
+		9E35500F2E6634EA00E81D00 /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E35500E2E6634EA00E81D00 /* ProductDetailViewController.swift */; };
 		9E50C5C42E52653500C6DC82 /* BarcodeScanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E50C5C32E52653500C6DC82 /* BarcodeScanCell.swift */; };
 		9E58E61C2D975B3A009F59EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E58E61B2D975B3A009F59EE /* AppDelegate.swift */; };
 		9E58E61E2D975B3A009F59EE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E58E61D2D975B3A009F59EE /* SceneDelegate.swift */; };
@@ -60,6 +66,12 @@
 		9E04A0332DECFD3700B9B9D7 /* RoutineCategoryBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCategoryBottomSheet.swift; sourceTree = "<group>"; };
 		9E0524812E0C7A98009ABF53 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		9E3450682DAB21C100531EBB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		9E3550042E66105F00E81D00 /* SavedProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedProduct.swift; sourceTree = "<group>"; };
+		9E3550062E66108600E81D00 /* ProductItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductItemCell.swift; sourceTree = "<group>"; };
+		9E3550082E6610A200E81D00 /* ProductListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListCell.swift; sourceTree = "<group>"; };
+		9E35500A2E6611A000E81D00 /* AddProductCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductCollectionCell.swift; sourceTree = "<group>"; };
+		9E35500C2E66279000E81D00 /* CategoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryStore.swift; sourceTree = "<group>"; };
+		9E35500E2E6634EA00E81D00 /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
 		9E50C5C32E52653500C6DC82 /* BarcodeScanCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScanCell.swift; sourceTree = "<group>"; };
 		9E58E61B2D975B3A009F59EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E58E61D2D975B3A009F59EE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -173,6 +185,12 @@
 				9E974B142E538F7800167D54 /* EmptyAnalysisView.swift */,
 				9EA7727E2E5CD52C00851E3B /* AddProductViewController.swift */,
 				9EA772802E5CD6E600851E3B /* AddProductCell.swift */,
+				9E3550042E66105F00E81D00 /* SavedProduct.swift */,
+				9E3550062E66108600E81D00 /* ProductItemCell.swift */,
+				9E3550082E6610A200E81D00 /* ProductListCell.swift */,
+				9E35500A2E6611A000E81D00 /* AddProductCollectionCell.swift */,
+				9E35500C2E66279000E81D00 /* CategoryStore.swift */,
+				9E35500E2E6634EA00E81D00 /* ProductDetailViewController.swift */,
 			);
 			path = PureSkinAIApp;
 			sourceTree = "<group>";
@@ -257,9 +275,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E3550072E66108600E81D00 /* ProductItemCell.swift in Sources */,
 				9E58E61C2D975B3A009F59EE /* AppDelegate.swift in Sources */,
 				9EA772812E5CD6E600851E3B /* AddProductCell.swift in Sources */,
 				9EE998BC2D9C8D71002A509C /* SkinSensitivityViewController.swift in Sources */,
+				9E35500D2E66279000E81D00 /* CategoryStore.swift in Sources */,
 				9EF9F49D2DFDEBF10037D005 /* CollectionTableViewCell.swift in Sources */,
 				9EB02A062E1EC4F000549EF7 /* CustomCameraViewController.swift in Sources */,
 				9E974B0B2E534C4600167D54 /* SkinAnalysisStore.swift in Sources */,
@@ -270,10 +290,13 @@
 				9EB029F82E1E8F8500549EF7 /* SelfiePromptCell.swift in Sources */,
 				9EA62E4C2DC59B910062EDF0 /* RoutineTableViewCell.swift in Sources */,
 				9EE998C42D9CBB32002A509C /* ProductsViewController.swift in Sources */,
+				9E35500F2E6634EA00E81D00 /* ProductDetailViewController.swift in Sources */,
+				9E3550092E6610A200E81D00 /* ProductListCell.swift in Sources */,
 				9EE998C22D9C9DEC002A509C /* SkinAnalysisViewController.swift in Sources */,
 				9EE998C62D9CBB67002A509C /* RoutinesViewController.swift in Sources */,
 				9E974B132E53543700167D54 /* Extensions.swift in Sources */,
 				9E58E6382D97686F009F59EE /* OnboardingViewModel.swift in Sources */,
+				9E35500B2E6611A000E81D00 /* AddProductCollectionCell.swift in Sources */,
 				9EE998CA2D9CBBAD002A509C /* ProfileViewController.swift in Sources */,
 				9EB029FE2E1EBCAD00549EF7 /* AnalysisViewController.swift in Sources */,
 				9E58E61E2D975B3A009F59EE /* SceneDelegate.swift in Sources */,
@@ -293,6 +316,7 @@
 				9E58E6362D976840009F59EE /* SplashViewController.swift in Sources */,
 				9EE998BE2D9C8D88002A509C /* SkinProblemsViewController.swift in Sources */,
 				9EE998C02D9C8DA1002A509C /* SkinConditionsViewController.swift in Sources */,
+				9E3550052E66105F00E81D00 /* SavedProduct.swift in Sources */,
 				9EA7727F2E5CD52C00851E3B /* AddProductViewController.swift in Sources */,
 				9EACC7742DC4107D00290FA4 /* ProfileEnums.swift in Sources */,
 				9E04A0342DECFD3700B9B9D7 /* RoutineCategoryBottomSheet.swift in Sources */,

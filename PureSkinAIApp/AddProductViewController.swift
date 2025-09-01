@@ -17,7 +17,12 @@ final class AddProductViewController: UIViewController, UIImagePickerControllerD
     private let addPhotoButton = UIButton(type: .system)
     private let nameTextField = UITextField()
     private let categoryTextField = UITextField()
-    private let addToRoutineButton = UIButton(type: .system)
+    private let descriptionTextField = UITextField()
+    
+    private let routineOptionButton = UIButton(type: .system)
+    private var shouldAddToRoutine = false
+    
+    private let addProductButton = UIButton(type: .system)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +30,23 @@ final class AddProductViewController: UIViewController, UIImagePickerControllerD
         view.backgroundColor = .systemBackground
         setupUI()
         setupKeyboardObservers()
+        setupCustomBackButton()
+    }
+    // MARK: - Özel Back Button
+    private func setupCustomBackButton() {
+        let backImage = UIImage(systemName: "chevron.left")?.withRenderingMode(.alwaysTemplate)
+        let backButton = UIButton(type: .system)
+        backButton.setImage(backImage, for: .normal)
+        backButton.tintColor = .black
+        backButton.setTitle(" Geri", for: .normal)
+        backButton.setTitleColor(.black, for: .normal)
+        backButton.addTarget(self, action: #selector(backTapped), for: .touchUpInside)
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
+    }
+
+    @objc private func backTapped() {
+        navigationController?.popViewController(animated: true)
     }
     
     private func setupUI() {
@@ -43,8 +65,9 @@ final class AddProductViewController: UIViewController, UIImagePickerControllerD
         productImageView.layer.cornerRadius = 16
         productImageView.backgroundColor = UIColor.secondarySystemBackground
         
-        addPhotoButton.setTitle("📷 Fotoğraf Ekle", for: .normal)
+        addPhotoButton.setTitle("Fotoğraf Ekle", for: .normal)
         addPhotoButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+        addPhotoButton.setTitleColor(UIColor.systemPink, for: .normal)
         addPhotoButton.addTarget(self, action: #selector(openCamera), for: .touchUpInside)
         
         nameTextField.placeholder = "Ürün Adı"
@@ -55,24 +78,36 @@ final class AddProductViewController: UIViewController, UIImagePickerControllerD
         categoryTextField.borderStyle = .roundedRect
         categoryTextField.delegate = self
         
-        addToRoutineButton.setTitle("Rutine Ekle", for: .normal)
-        addToRoutineButton.backgroundColor = .systemGreen
-        addToRoutineButton.setTitleColor(.white, for: .normal)
-        addToRoutineButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
-        addToRoutineButton.layer.cornerRadius = 12
+        descriptionTextField.placeholder = "Açıklama (isteğe bağlı)"
+        descriptionTextField.borderStyle = .roundedRect
+        descriptionTextField.delegate = self
         
-   
+        routineOptionButton.setTitle("  Rutinime ekle", for: .normal)
+        routineOptionButton.setTitleColor(.label, for: .normal)
+        routineOptionButton.setImage(UIImage(systemName: "circle"), for: .normal)
+        routineOptionButton.tintColor = .systemGreen
+        routineOptionButton.contentHorizontalAlignment = .leading
+        routineOptionButton.addTarget(self, action: #selector(toggleRoutineOption), for: .touchUpInside)
+        
+        addProductButton.setTitle("Ürün Ekle", for: .normal)
+        addProductButton.backgroundColor = .systemGreen
+        addProductButton.setTitleColor(.white, for: .normal)
+        addProductButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
+        addProductButton.layer.cornerRadius = 12
+        addProductButton.addTarget(self, action: #selector(addProductTapped), for: .touchUpInside)
+        
         let stack = UIStackView(arrangedSubviews: [
             productImageView, addPhotoButton,
-            nameTextField, categoryTextField,
-            addToRoutineButton
+            nameTextField, categoryTextField, descriptionTextField,
+            routineOptionButton,
+            addProductButton
         ])
         stack.axis = .vertical
         stack.spacing = 16
         contentView.addSubview(stack)
         
-        productImageView.snp.makeConstraints { $0.height.equalTo(220) }
-        addToRoutineButton.snp.makeConstraints { $0.height.equalTo(50) }
+        productImageView.snp.makeConstraints { $0.height.equalTo(350) }
+        addProductButton.snp.makeConstraints { $0.height.equalTo(50) }
         
         stack.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview().inset(20)
@@ -85,36 +120,20 @@ final class AddProductViewController: UIViewController, UIImagePickerControllerD
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.allowsEditing = true
-        
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            picker.sourceType = .camera
-            if UIImagePickerController.isCameraDeviceAvailable(.rear) {
-                picker.cameraDevice = .rear
-            }
-        } else {
-            picker.sourceType = .photoLibrary
+        picker.sourceType = UIImagePickerController.isSourceTypeAvailable(.camera) ? .camera : .photoLibrary
+        if picker.sourceType == .camera, UIImagePickerController.isCameraDeviceAvailable(.rear) {
+            picker.cameraDevice = .rear
         }
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.present(picker, animated: true)
-        }
+        present(picker, animated: true)
     }
     
     // MARK: - Fotoğraf Seçimi
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        var selectedImage: UIImage?
-        
-        if let image = info[.editedImage] as? UIImage {
-            selectedImage = image
-        } else if let image = info[.originalImage] as? UIImage {
-            selectedImage = image
-        }
-        
+        let selectedImage = (info[.editedImage] ?? info[.originalImage]) as? UIImage
         if let image = selectedImage {
             productImageView.image = image
         }
-        
         picker.dismiss(animated: true)
     }
     
@@ -143,5 +162,58 @@ final class AddProductViewController: UIViewController, UIImagePickerControllerD
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    // MARK: -  Rutinime ekle seçeneği
+    @objc private func toggleRoutineOption() {
+        shouldAddToRoutine.toggle()
+        let icon = shouldAddToRoutine ? "checkmark.circle.fill" : "circle"
+        routineOptionButton.setImage(UIImage(systemName: icon), for: .normal)
+    }
+    
+    // MARK: -  Ürün Kaydetme
+    @objc private func addProductTapped() {
+        guard let name = nameTextField.text, !name.isEmpty,
+              let category = categoryTextField.text, !category.isEmpty,
+              let image = productImageView.image,
+              let imageData = image.jpegData(compressionQuality: 0.8) else {
+            
+            validateFields()
+            return
+        }
+        
+        let description = descriptionTextField.text ?? ""
+        let newProduct = SavedProduct(
+            id: UUID(),
+            name: name,
+            imageData: imageData,
+            category: category,
+            descriptionText: descriptionTextField.text,
+            isInRoutine: shouldAddToRoutine
+        )
+        ProductStore.save(newProduct)
+    
+        if shouldAddToRoutine {
+            CategoryStore.addProduct(category: category, product: name)
+            if !description.isEmpty {
+                var dict = UserDefaults.standard.dictionary(forKey: "productDescriptions") as? [String: String] ?? [:]
+                dict[name] = description
+                UserDefaults.standard.set(dict, forKey: "productDescriptions")
+            }
+            NotificationCenter.default.post(name: Notification.Name("CategoryUpdated"), object: nil)
+        }
+        
+        navigationController?.popViewController(animated: true)
+    }
+    private func validateFields() {
+        [nameTextField, categoryTextField].forEach { tf in
+            if let text = tf.text, text.isEmpty {
+                tf.layer.borderColor = UIColor.systemRed.cgColor
+                tf.layer.borderWidth = 1
+            } else {
+                tf.layer.borderColor = UIColor.clear.cgColor
+                tf.layer.borderWidth = 0
+            }
+        }
     }
 }

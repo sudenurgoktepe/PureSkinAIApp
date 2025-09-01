@@ -24,7 +24,7 @@ class SkinTypeViewController: UIViewController {
         imageView.image = UIImage(named: "onboardingimage2")
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.alpha = 0.7 // Solgun görünüm için
+        imageView.alpha = 0.7
         return imageView
     }()
     
@@ -67,7 +67,7 @@ class SkinTypeViewController: UIViewController {
         button.backgroundColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0) // PureSkinAI yeşili
         button.layer.cornerRadius = 25
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.alpha = 0.5 // Başlangıçta pasif
+        button.alpha = 0.5 
         button.isEnabled = false
         return button
     }()
