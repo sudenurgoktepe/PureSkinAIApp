@@ -17,7 +17,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-        // Splash ekranını root view controller olarak ayarla
         let splashVC = SplashViewController()
         let navController = UINavigationController(rootViewController: splashVC)
         navController.setNavigationBarHidden(true, animated: false)
