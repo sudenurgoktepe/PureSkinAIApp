@@ -360,7 +360,6 @@ class RoutineCategoryBottomSheet: UIViewController {
         if alreadyExists {
             let saved = loadSavedRoutines()
             
-            // Hangi günlerde çakışma var?
             let overlappingDays = saved
                 .first(where: { $0.name == routine.name && $0.type == routine.type })?
                 .days

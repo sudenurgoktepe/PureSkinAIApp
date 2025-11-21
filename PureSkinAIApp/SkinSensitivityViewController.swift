@@ -290,20 +290,18 @@ class SkinSensitivityViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func sensitivityButtonTapped(_ sender: UIButton) {
-        // Önceki seçimi temizle
+       
         sensitivityStackView.arrangedSubviews.forEach { view in
             if let button = view as? UIButton {
                 button.backgroundColor = .white
                 button.layer.borderColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1.0).cgColor
                 
-                // İçerik stack view'ı bul
+               
                 if let contentStack = button.subviews.first as? UIStackView {
-                    // Başlık rengini sıfırla
+                   
                     if let titleLabel = contentStack.arrangedSubviews.first as? UILabel {
                         titleLabel.textColor = .black
                     }
-                    
-                    // Açıklama rengini sıfırla
                     if let descriptionLabel = contentStack.arrangedSubviews.last as? UILabel {
                         descriptionLabel.textColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 1.0)
                     }
@@ -311,18 +309,16 @@ class SkinSensitivityViewController: UIViewController {
             }
         }
         
-        // Yeni seçimi işaretle
         sender.backgroundColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 0.1)
         sender.layer.borderColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0).cgColor
         
-        // İçerik stack view'ı bul
         if let contentStack = sender.subviews.first as? UIStackView {
-            // Başlık rengini değiştir
+    
             if let titleLabel = contentStack.arrangedSubviews.first as? UILabel {
                 titleLabel.textColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0)
             }
             
-            // Açıklama rengini değiştirme - aynı renk kalacak
+          
         }
         
         selectedSensitivity = SkinSensitivity(rawValue: sender.tag)
@@ -340,7 +336,7 @@ class SkinSensitivityViewController: UIViewController {
     }
     
     @objc private func continueButtonTapped() {
-        // Seçilen cilt hassasiyetini UserDefaults'a kaydet
+      
         if let sensitivity = selectedSensitivity {
             UserDefaults.standard.set(sensitivity.rawValue, forKey: "userSkinSensitivity")
         }

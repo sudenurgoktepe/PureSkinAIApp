@@ -45,7 +45,7 @@ class UserInfoViewController: UIViewController {
         let label = UILabel()
         label.text = "Daha iyi bir deneyim için lütfen cinsiyet ve yaş aralığını seç."
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 1.0) // Solgun gri
+        label.textColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 1.0)
         label.textAlignment = .center
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -95,10 +95,10 @@ class UserInfoViewController: UIViewController {
         button.setTitle("Devam Et", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0) // PureSkinAI yeşili
+        button.backgroundColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0)
         button.layer.cornerRadius = 25
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.alpha = 0.5 // Başlangıçta pasif
+        button.alpha = 0.5
         button.isEnabled = false
         return button
     }()
@@ -241,7 +241,6 @@ class UserInfoViewController: UIViewController {
             genderStackView.addArrangedSubview(button)
         }
 
-        // Butonların hem genişliğini hem yüksekliğini eşitle
         genderStackView.arrangedSubviews.forEach { view in
             if let button = view as? UIButton {
                 button.widthAnchor.constraint(equalTo: genderStackView.widthAnchor, multiplier: 0.5, constant: -10).isActive = true
@@ -260,48 +259,44 @@ class UserInfoViewController: UIViewController {
         button.tag = gender.rawValue
         button.translatesAutoresizingMaskIntoConstraints = false
         
-        // İçerik stack view
         let contentStack = UIStackView()
-        contentStack.axis = .horizontal // Yatay düzen
+        contentStack.axis = .horizontal
         contentStack.alignment = .center
         contentStack.spacing = 10
         contentStack.translatesAutoresizingMaskIntoConstraints = false
-        contentStack.isUserInteractionEnabled = false // Stack view'ın tıklamaları engellemesini önle
+        contentStack.isUserInteractionEnabled = false
         
-        // İkon
+        
         let imageView = UIImageView()
         imageView.image = UIImage(named: icon)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.isUserInteractionEnabled = false // Image view'ın tıklamaları engellemesini önle
+        imageView.isUserInteractionEnabled = false
         
-        // Başlık
         let titleLabel = UILabel()
         titleLabel.text = title
         titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         titleLabel.textColor = .black
         titleLabel.textAlignment = .left
-        titleLabel.isUserInteractionEnabled = false // Label'ın tıklamaları engellemesini önle
+        titleLabel.isUserInteractionEnabled = false
         
         contentStack.addArrangedSubview(imageView)
         contentStack.addArrangedSubview(titleLabel)
         
         button.addSubview(contentStack)
         
-        // Stack view için constraint'ler
         NSLayoutConstraint.activate([
             contentStack.centerXAnchor.constraint(equalTo: button.centerXAnchor),
             contentStack.centerYAnchor.constraint(equalTo: button.centerYAnchor),
             contentStack.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: 15),
             contentStack.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: -15),
             
-            imageView.widthAnchor.constraint(equalToConstant: 50), // Daha küçük görsel
-            imageView.heightAnchor.constraint(equalToConstant: 50) // Daha küçük görsel
+            imageView.widthAnchor.constraint(equalToConstant: 50),
+            imageView.heightAnchor.constraint(equalToConstant: 50)
         ])
         
-        // Buton için action
         button.addTarget(self, action: #selector(genderButtonTapped(_:)), for: .touchUpInside)
-        button.heightAnchor.constraint(equalToConstant: 70).isActive = true // Sabit yükseklik
+        button.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
         return button
     }
@@ -316,7 +311,6 @@ class UserInfoViewController: UIViewController {
             ("55+", .range55plus)
         ]
         
-        // İki satır için stack view'lar
         let row1Stack = UIStackView()
         row1Stack.axis = .horizontal
         row1Stack.distribution = .fillEqually
@@ -332,19 +326,16 @@ class UserInfoViewController: UIViewController {
         ageRangeStackView.addArrangedSubview(row1Stack)
         ageRangeStackView.addArrangedSubview(row2Stack)
         
-        // İlk 3 butonu ilk satıra ekle
         for i in 0..<3 {
             let button = createAgeRangeButton(title: ageRanges[i].title, range: ageRanges[i].range)
             row1Stack.addArrangedSubview(button)
         }
         
-        // Son 3 butonu ikinci satıra ekle
         for i in 3..<6 {
             let button = createAgeRangeButton(title: ageRanges[i].title, range: ageRanges[i].range)
             row2Stack.addArrangedSubview(button)
         }
         
-        // Yaş butonlarının genişliklerini eşitle
         if let firstRow = ageRangeStackView.arrangedSubviews.first as? UIStackView,
            let firstButton = firstRow.arrangedSubviews.first {
             firstButton.widthAnchor.constraint(equalTo: firstRow.widthAnchor, multiplier: 1/3, constant: -10).isActive = true
@@ -363,7 +354,6 @@ class UserInfoViewController: UIViewController {
         button.tag = range.rawValue
         button.translatesAutoresizingMaskIntoConstraints = false
         
-        // Buton için action
         button.addTarget(self, action: #selector(ageRangeButtonTapped(_:)), for: .touchUpInside)
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true // Sabit yükseklik
         
@@ -372,15 +362,13 @@ class UserInfoViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func genderButtonTapped(_ sender: UIButton) {
-        // Önceki seçimi temizle
+    
         genderStackView.arrangedSubviews.forEach { view in
             if let button = view as? UIButton {
                 button.backgroundColor = .white
                 button.layer.borderColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1.0).cgColor
-                
-                // İçerik stack view'ı bul
+            
                 if let contentStack = button.subviews.first as? UIStackView {
-                    // Başlık rengini sıfırla
                     if let titleLabel = contentStack.arrangedSubviews.last as? UILabel {
                         titleLabel.textColor = .black
                     }
@@ -388,13 +376,11 @@ class UserInfoViewController: UIViewController {
             }
         }
         
-        // Yeni seçimi işaretle
         sender.backgroundColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 0.1)
         sender.layer.borderColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0).cgColor
         
-        // İçerik stack view'ı bul
         if let contentStack = sender.subviews.first as? UIStackView {
-            // Başlık rengini değiştir
+           
             if let titleLabel = contentStack.arrangedSubviews.last as? UILabel {
                 titleLabel.textColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0)
             }
@@ -405,7 +391,7 @@ class UserInfoViewController: UIViewController {
     }
     
     @objc private func ageRangeButtonTapped(_ sender: UIButton) {
-        // Önceki seçimi temizle
+        
         ageRangeStackView.arrangedSubviews.forEach { rowStack in
             if let rowStack = rowStack as? UIStackView {
                 rowStack.arrangedSubviews.forEach { view in
@@ -418,7 +404,6 @@ class UserInfoViewController: UIViewController {
             }
         }
         
-        // Yeni seçimi işaretle
         sender.backgroundColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 0.1)
         sender.setTitleColor(UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0), for: .normal)
         sender.layer.borderColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0).cgColor
@@ -438,7 +423,6 @@ class UserInfoViewController: UIViewController {
     }
     
     @objc private func continueButtonTapped() {
-        // Seçilen bilgileri UserDefaults'a kaydet
         if let gender = selectedGender, let ageRange = selectedAgeRange {
             UserDefaults.standard.set(gender.rawValue, forKey: "userGender")
             UserDefaults.standard.set(ageRange.rawValue, forKey: "userAgeRange")

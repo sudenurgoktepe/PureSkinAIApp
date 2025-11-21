@@ -9,17 +9,16 @@ import Foundation
 
 class SkinAnalysisStore {
     private static let key = "skin_analysis_history"
-    
-    /// Kaydetme
+
     static func save(_ analysis: SkinAnalysis) {
         var list = load()
-        list.insert(analysis, at: 0) // en yeni başa eklenir
+        list.insert(analysis, at: 0)
         if let data = try? JSONEncoder().encode(list) {
             UserDefaults.standard.set(data, forKey: key)
         }
     }
     
-    /// Okuma
+   
     static func load() -> [SkinAnalysis] {
         guard let data = UserDefaults.standard.data(forKey: key),
               let list = try? JSONDecoder().decode([SkinAnalysis].self, from: data) else {

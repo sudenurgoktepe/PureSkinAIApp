@@ -47,7 +47,7 @@ final class ProductDetailViewController: UIViewController {
     private func setupNavigationBar() {
         let backButton = UIButton(type: .system)
         backButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-        backButton.tintColor = .black // siyah ikon
+        backButton.tintColor = .black
         backButton.setTitle(" Geri", for: .normal)
         backButton.setTitleColor(.black, for: .normal)
         backButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)

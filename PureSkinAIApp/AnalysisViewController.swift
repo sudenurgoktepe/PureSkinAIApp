@@ -324,10 +324,9 @@ final class AnalysisViewController: UIViewController {
             let analysis = SkinAnalysis(
                 score: score,
                 image: image,
-                resultText: resultText // tüm texti kaydediyoruz
+                resultText: resultText
             )
             
-            // Eğer aynı text zaten varsa tekrar eklemesin
             let existing = SkinAnalysisStore.load()
             if !existing.contains(where: { $0.resultText == resultText }) {
                 SkinAnalysisStore.save(analysis)

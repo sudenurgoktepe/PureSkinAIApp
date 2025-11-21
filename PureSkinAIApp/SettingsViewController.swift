@@ -29,7 +29,6 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         
-        // Geri dönüş butonu
         let backButton = UIButton(type: .system)
         backButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         backButton.tintColor = .labelPrimary
@@ -88,27 +87,22 @@ class SettingsViewController: UIViewController {
     }
     
     private func deleteAccount() {
-        // Tüm UserDefaults verilerini sil
         let defaults = UserDefaults.standard
         let dictionary = defaults.dictionaryRepresentation()
         dictionary.keys.forEach { key in
             defaults.removeObject(forKey: key)
         }
         
-        // hasUserData değerini false olarak ayarla
         defaults.set(false, forKey: "hasUserData")
         
-        // Onboarding sayfasına yönlendir
         let onboardingVC = OnboardingViewController()
         let navigationController = UINavigationController(rootViewController: onboardingVC)
         navigationController.modalPresentationStyle = .fullScreen
         
-        // Mevcut navigation controller'ı değiştir
         if let window = UIApplication.shared.windows.first {
             window.rootViewController = navigationController
             window.makeKeyAndVisible()
             
-            // Animasyon ekle
             UIView.transition(with: window,
                             duration: 0.3,
                             options: .transitionCrossDissolve,

@@ -42,7 +42,7 @@ class SkinTypeViewController: UIViewController {
         let label = UILabel()
         label.text = "Mükemmel cilt bakım rutini oluşturabilmemiz için cilt tipinizi seçin"
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 1.0) // Solgun gri
+        label.textColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 1.0)
         label.textAlignment = .center
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -64,7 +64,7 @@ class SkinTypeViewController: UIViewController {
         button.setTitle("Devam Et", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0) // PureSkinAI yeşili
+        button.backgroundColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0)
         button.layer.cornerRadius = 25
         button.translatesAutoresizingMaskIntoConstraints = false
         button.alpha = 0.5 
@@ -200,7 +200,6 @@ class SkinTypeViewController: UIViewController {
         button.tag = type.rawValue
         button.translatesAutoresizingMaskIntoConstraints = false
         
-        // İçerik stack view
         let contentStack = UIStackView()
         contentStack.axis = .horizontal
         contentStack.alignment = .center
@@ -208,14 +207,12 @@ class SkinTypeViewController: UIViewController {
         contentStack.translatesAutoresizingMaskIntoConstraints = false
         contentStack.isUserInteractionEnabled = false
         
-        // İkon
         let imageView = UIImageView()
         imageView.image = UIImage(named: icon)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.isUserInteractionEnabled = false
         
-        // Metin stack view
         let textStack = UIStackView()
         textStack.axis = .vertical
         textStack.alignment = .leading
@@ -223,14 +220,12 @@ class SkinTypeViewController: UIViewController {
         textStack.translatesAutoresizingMaskIntoConstraints = false
         textStack.isUserInteractionEnabled = false
         
-        // Başlık
         let titleLabel = UILabel()
         titleLabel.text = title
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         titleLabel.textColor = .black
         titleLabel.isUserInteractionEnabled = false
         
-        // Açıklama
         let descriptionLabel = UILabel()
         descriptionLabel.text = description
         descriptionLabel.font = UIFont.systemFont(ofSize: 14)
@@ -262,20 +257,18 @@ class SkinTypeViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func skinTypeButtonTapped(_ sender: UIButton) {
-        // Önceki seçimi temizle
         skinTypeStackView.arrangedSubviews.forEach { view in
             if let button = view as? UIButton {
                 button.backgroundColor = .white
                 button.layer.borderColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1.0).cgColor
                 
-                // İçerik stack view'ı bul
                 if let contentStack = button.subviews.first as? UIStackView {
-                    // Başlık rengini sıfırla
+                    
                     if let titleLabel = contentStack.arrangedSubviews.first as? UILabel {
                         titleLabel.textColor = .black
                     }
                     
-                    // Açıklama rengini sıfırla
+                   
                     if let descriptionLabel = contentStack.arrangedSubviews.last as? UILabel {
                         descriptionLabel.textColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 1.0)
                     }
@@ -283,18 +276,16 @@ class SkinTypeViewController: UIViewController {
             }
         }
         
-        // Yeni seçimi işaretle
         sender.backgroundColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 0.1)
         sender.layer.borderColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0).cgColor
         
-        // İçerik stack view'ı bul
+        
         if let contentStack = sender.subviews.first as? UIStackView {
-            // Başlık rengini değiştir
+
             if let titleLabel = contentStack.arrangedSubviews.first as? UILabel {
                 titleLabel.textColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0)
             }
             
-            // Açıklama rengini değiştirme - aynı renk kalacak
         }
         
         selectedSkinType = SkinType(rawValue: sender.tag)
@@ -312,7 +303,6 @@ class SkinTypeViewController: UIViewController {
     }
     
     @objc private func continueButtonTapped() {
-        // Seçilen cilt tipini UserDefaults'a kaydet
         if let skinType = selectedSkinType {
             UserDefaults.standard.set(skinType.rawValue, forKey: "userSkinType")
         }

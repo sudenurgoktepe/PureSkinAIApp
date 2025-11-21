@@ -5,12 +5,6 @@
 //  Created by sude on 18.08.2025.
 //
 
-//
-//  AddSelfieCell.swift
-//  PureSkinAIApp
-//
-//  Created by sude on 18.08.2025.
-//
 
 import Foundation
 import UIKit
@@ -29,7 +23,7 @@ class AddSelfieCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 12
         contentView.clipsToBounds = true
         contentView.layer.borderWidth = 2
-        contentView.layer.borderColor = UIColor.systemGray4.cgColor  // kenar çizgisi
+        contentView.layer.borderColor = UIColor.systemGray4.cgColor  
         
         // Plus label
         plusLabel.text = "+"

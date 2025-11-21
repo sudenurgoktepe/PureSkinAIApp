@@ -22,7 +22,6 @@ class AddProductCell: UITableViewCell {
         selectionStyle = .none
         backgroundColor = .clear
         
-        // Container (orta kutu)
         containerView.backgroundColor = .backgroundcolor
         containerView.layer.cornerRadius = 14
         containerView.layer.borderWidth = 1.5

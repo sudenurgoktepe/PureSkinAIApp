@@ -14,17 +14,14 @@ class EmptyAnalysisView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        // Arka plan
         backgroundColor = .clear
         
-        // Dashed border
         dashedBorder.strokeColor = UIColor.systemGray3.cgColor
-        dashedBorder.lineDashPattern = [6, 4] // çizgi - boşluk
+        dashedBorder.lineDashPattern = [6, 4]
         dashedBorder.fillColor = UIColor.clear.cgColor
         dashedBorder.lineWidth = 1.2
         layer.addSublayer(dashedBorder)
         
-        // Buton → Artı ikonu assets'ten
         let plusImage = UIImage(named: "plus")?.withRenderingMode(.alwaysOriginal)
         addButton.setImage(plusImage, for: .normal)
         addButton.imageView?.contentMode = .scaleAspectFit
@@ -32,7 +29,6 @@ class EmptyAnalysisView: UIView {
         addButton.layer.cornerRadius = 20
         addButton.clipsToBounds = true
         
-        // Açıklama
         infoLabel.text = "Cilt ilerlemenizi düzenli olarak takip etmek için buradan selfie ekleyebilirsiniz. Unutmayın, cildiniz bizim için çok önemli!"
         infoLabel.font = .systemFont(ofSize: 15, weight: .medium)
         infoLabel.textColor = .secondaryLabel

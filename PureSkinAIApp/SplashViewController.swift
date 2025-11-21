@@ -19,7 +19,6 @@ class SplashViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // 2 saniye sonra yönlendirme yap
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.checkUserDataAndNavigate()
         }
@@ -27,15 +26,11 @@ class SplashViewController: UIViewController {
     
     // MARK: - Setup
     private func setupUI() {
-        // Açık yeşil arka plan
         view.backgroundColor = UIColor(red: 200/255, green: 230/255, blue: 200/255, alpha: 1.0)
         
-        // İkon ekleme
         view.addSubview(iconImageView)
-        
-        // Constraint'ler
+    
         NSLayoutConstraint.activate([
-            // İkon ortalama
             iconImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             iconImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             iconImageView.widthAnchor.constraint(equalToConstant: 150),

@@ -13,7 +13,7 @@ struct SkinAnalysis: Codable {
     let date: Date
     let score: Int
     let imageData: Data
-    let resultText: String  // tüm rapor
+    let resultText: String  
     
     init(score: Int, image: UIImage, resultText: String) {
         self.id = UUID()

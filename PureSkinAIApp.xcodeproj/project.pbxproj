@@ -43,7 +43,6 @@
 		9EACC7742DC4107D00290FA4 /* ProfileEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EACC7732DC4107D00290FA4 /* ProfileEnums.swift */; };
 		9EB029F82E1E8F8500549EF7 /* SelfiePromptCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB029F72E1E8F8500549EF7 /* SelfiePromptCell.swift */; };
 		9EB029FE2E1EBCAD00549EF7 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB029FD2E1EBCAD00549EF7 /* AnalysisViewController.swift */; };
-		9EB02A002E1EBCD800549EF7 /* pureskinai-163b1a8ff534.json in Resources */ = {isa = PBXBuildFile; fileRef = 9EB029FF2E1EBCD800549EF7 /* pureskinai-163b1a8ff534.json */; };
 		9EB02A042E1EC20900549EF7 /* CameraOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB02A032E1EC20900549EF7 /* CameraOverlayView.swift */; };
 		9EB02A062E1EC4F000549EF7 /* CustomCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB02A052E1EC4F000549EF7 /* CustomCameraViewController.swift */; };
 		9EB02A082E1ECCAD00549EF7 /* AnalysisLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB02A072E1ECCAD00549EF7 /* AnalysisLoadingViewController.swift */; };
@@ -98,7 +97,6 @@
 		9EACC7732DC4107D00290FA4 /* ProfileEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEnums.swift; sourceTree = "<group>"; };
 		9EB029F72E1E8F8500549EF7 /* SelfiePromptCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfiePromptCell.swift; sourceTree = "<group>"; };
 		9EB029FD2E1EBCAD00549EF7 /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
-		9EB029FF2E1EBCD800549EF7 /* pureskinai-163b1a8ff534.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "pureskinai-163b1a8ff534.json"; sourceTree = "<group>"; };
 		9EB02A032E1EC20900549EF7 /* CameraOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraOverlayView.swift; sourceTree = "<group>"; };
 		9EB02A052E1EC4F000549EF7 /* CustomCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCameraViewController.swift; sourceTree = "<group>"; };
 		9EB02A072E1ECCAD00549EF7 /* AnalysisLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisLoadingViewController.swift; sourceTree = "<group>"; };
@@ -171,7 +169,6 @@
 				9EF05C1D2E0DD78800E75978 /* TabBarController.swift */,
 				9EB029F72E1E8F8500549EF7 /* SelfiePromptCell.swift */,
 				9EB029FD2E1EBCAD00549EF7 /* AnalysisViewController.swift */,
-				9EB029FF2E1EBCD800549EF7 /* pureskinai-163b1a8ff534.json */,
 				9EB02A032E1EC20900549EF7 /* CameraOverlayView.swift */,
 				9EB02A052E1EC4F000549EF7 /* CustomCameraViewController.swift */,
 				9EB02A072E1ECCAD00549EF7 /* AnalysisLoadingViewController.swift */,
@@ -263,7 +260,6 @@
 			files = (
 				9E58E6282D975B3B009F59EE /* LaunchScreen.storyboard in Resources */,
 				9E58E6252D975B3B009F59EE /* Assets.xcassets in Resources */,
-				9EB02A002E1EBCD800549EF7 /* pureskinai-163b1a8ff534.json in Resources */,
 				9E58E6232D975B3A009F59EE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

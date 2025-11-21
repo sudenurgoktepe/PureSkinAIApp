@@ -139,7 +139,6 @@ class SkinAnalysisViewController: UIViewController {
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         continueButton.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
         
-        // Analiz animasyonunu başlat
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.startAnalysisAnimation()
         }
@@ -175,15 +174,14 @@ class SkinAnalysisViewController: UIViewController {
         if isLastRow {
             let attributedText = NSMutableAttributedString(string: text)
             let greenColor = UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0)
-            
-            // "16" yazısını yeşil yap
+        
             if let range = text.range(of: "16") {
                 let nsRange = NSRange(range, in: text)
                 attributedText.addAttribute(.foregroundColor, value: greenColor, range: nsRange)
                 attributedText.addAttribute(.font, value: UIFont.systemFont(ofSize: 16, weight: .bold), range: nsRange)
             }
             
-            // 3 basamaklı sayıyı yeşil yap
+           
             let numberPattern = "\\d{3}"
             if let regex = try? NSRegularExpression(pattern: numberPattern, options: []) {
                 let matches = regex.matches(in: text, options: [], range: NSRange(text.startIndex..., in: text))

@@ -26,7 +26,6 @@ class OnboardingViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.alpha = 0
         
-        // Gölge efekti için container view
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.layer.shadowColor = UIColor.black.cgColor
@@ -52,13 +51,11 @@ class OnboardingViewController: UIViewController {
         let text = "PureSkinAI'e"
         let attributedText = NSMutableAttributedString(string: text)
         
-        // PureSkinAI kısmını yeşil yap
         if let range = text.range(of: "PureSkinAI") {
             let nsRange = NSRange(range, in: text)
             attributedText.addAttribute(.foregroundColor, value: UIColor(red: 76/255, green: 175/255, blue: 80/255, alpha: 1.0), range: nsRange)
         }
         
-        // 'e' kısmını siyah yap
         if let range = text.range(of: "'e") {
             let nsRange = NSRange(range, in: text)
             attributedText.addAttribute(.foregroundColor, value: UIColor.black, range: nsRange)
@@ -185,7 +182,6 @@ class OnboardingViewController: UIViewController {
     }
     
     private func setupStars() {
-        // 5 adet yıldız oluşturma
         for _ in 0..<5 {
             let starImageView = UIImageView()
             starImageView.image = UIImage(systemName: "star.fill")
@@ -196,7 +192,6 @@ class OnboardingViewController: UIViewController {
             
             starsStackView.addArrangedSubview(starImageView)
             
-            // Yıldız boyutu
             NSLayoutConstraint.activate([
                 starImageView.widthAnchor.constraint(equalToConstant: 30),
                 starImageView.heightAnchor.constraint(equalToConstant: 30)
@@ -211,20 +206,17 @@ class OnboardingViewController: UIViewController {
         viewModel.onStartButtonTapped = { [weak self] in
             guard let self = self else { return }
             
-            // Ana ekrana geçiş
             navigateToMainScreen()
         }
     }
     
     // MARK: - Animations
     private func animateElements() {
-        // Üst görsel animasyonu
         UIView.animate(withDuration: 0.8, delay: 0.2, options: .curveEaseOut) {
             self.headerImageView.alpha = 1
             self.headerImageView.transform = CGAffineTransform(translationX: 0, y: 0)
         }
         
-        // Başlık animasyonları
         UIView.animate(withDuration: 0.8, delay: 0.4, options: .curveEaseOut) {
             self.titleLabel.alpha = 1
             self.titleLabel.transform = CGAffineTransform(translationX: 0, y: 0)
@@ -235,13 +227,11 @@ class OnboardingViewController: UIViewController {
             self.titleLabel2.transform = CGAffineTransform(translationX: 0, y: 0)
         }
         
-        // Açıklama animasyonu
         UIView.animate(withDuration: 0.8, delay: 0.8, options: .curveEaseOut) {
             self.descriptionLabel.alpha = 1
             self.descriptionLabel.transform = CGAffineTransform(translationX: 0, y: 0)
         }
         
-        // Yıldız animasyonları
         for (index, starView) in self.starImageViews.enumerated() {
             let delay = viewModel.delayForStarIndex(index)
             
@@ -251,7 +241,6 @@ class OnboardingViewController: UIViewController {
             }
         }
         
-        // Buton animasyonu
         UIView.animate(withDuration: 0.8, delay: 2.0, options: .curveEaseOut) {
             self.continueButton.alpha = 1
             self.continueButton.transform = CGAffineTransform(scaleX: 1, y: 1)

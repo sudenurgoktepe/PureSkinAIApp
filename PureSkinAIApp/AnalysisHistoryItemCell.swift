@@ -14,7 +14,6 @@ class AnalysisHistoryItemCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        // Kart görünümü
         contentView.layer.cornerRadius = 14
         contentView.backgroundColor = .systemBackground
         contentView.layer.shadowColor = UIColor.black.cgColor
@@ -23,12 +22,10 @@ class AnalysisHistoryItemCell: UICollectionViewCell {
         contentView.layer.shadowRadius = 6
         contentView.layer.masksToBounds = false
         
-        // Görsel
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 12
         imageView.clipsToBounds = true
         
-        // Skor Container
         scoreContainer.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.15)
         scoreContainer.layer.cornerRadius = 8
         
@@ -36,18 +33,15 @@ class AnalysisHistoryItemCell: UICollectionViewCell {
         scoreLabel.textColor = UIColor(red: 0.93, green: 0.67, blue: 0.55, alpha: 1.0)
         scoreLabel.textAlignment = .center
         
-        // Silme butonu
         deleteButton.setImage(UIImage(systemName: "trash.circle.fill"), for: .normal)
         deleteButton.tintColor = .white
         deleteButton.addTarget(self, action: #selector(deletePressed), for: .touchUpInside)
         
-        // Hiyerarşi
         contentView.addSubview(imageView)
         contentView.addSubview(scoreContainer)
         contentView.addSubview(deleteButton)
         scoreContainer.addSubview(scoreLabel)
         
-        // Constraints
         imageView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview().inset(8)
             $0.height.equalTo(110)

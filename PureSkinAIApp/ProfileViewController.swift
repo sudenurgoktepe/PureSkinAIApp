@@ -331,7 +331,6 @@ class ProfileViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingsButton)
         
-        // Navigation bar'ı görünür yap
         navigationController?.setNavigationBarHidden(false, animated: false)
        
     }
@@ -668,7 +667,6 @@ class ProfileViewController: UIViewController {
         let iconImageView = UIImageView()
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 18)
         
-        // Duruma göre ikon belirle (isteğe bağlı)
         var image: UIImage?
         switch condition {
         case "Egzama":
@@ -715,13 +713,12 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func settingsButtonTapped() {
-        // Ayarlar sayfasına yönlendirme
         let settingsVC = SettingsViewController()
         navigationController?.pushViewController(settingsVC, animated: true)
     }
     
     @objc private func addSelfieButtonTapped() {
-        // Kamera açma işlemi
+    
         print("Selfie ekle butonuna tıklandı")
     }
     

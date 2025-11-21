@@ -262,7 +262,6 @@ class SkinProblemsViewController: UIViewController {
     }
     
     @objc private func continueButtonTapped() {
-        // Seçilen cilt sorunlarını UserDefaults'a kaydet
         let selectedProblemsArray = Array(selectedProblems).map { $0.rawValue }
         UserDefaults.standard.set(selectedProblemsArray, forKey: "userSkinProblems")
         

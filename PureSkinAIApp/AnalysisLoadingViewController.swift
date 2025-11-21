@@ -14,7 +14,7 @@ final class AnalysisLoadingViewController: UIViewController {
     private let statusLabel = UILabel()
     private let readyButton = UIButton(type: .system)
     private var analysisResultText: String?
-    private var dotTimer: Timer?   // ✅ nokta animasyonu için
+    private var dotTimer: Timer?
 
     init(image: UIImage) {
         self.image = image
@@ -46,7 +46,6 @@ final class AnalysisLoadingViewController: UIViewController {
             imageView.heightAnchor.constraint(equalToConstant: size)
         ])
 
-        // dönen halka
         let path = UIBezierPath(arcCenter: .zero, radius: size/2 + 10, startAngle: 0, endAngle: 2 * .pi, clockwise: true)
         ring.path = path.cgPath
         ring.strokeColor = UIColor.systemGreen.cgColor
@@ -90,7 +89,7 @@ final class AnalysisLoadingViewController: UIViewController {
         rot.repeatCount = .infinity
         ring.add(rot, forKey: "rot")
 
-        // ✅ Nokta animasyonu başlat
+    
         startDotsAnimation()
     }
 
@@ -99,7 +98,7 @@ final class AnalysisLoadingViewController: UIViewController {
         dotTimer?.invalidate()
         dotTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
             guard let self = self else { return }
-            dotCount = (dotCount + 1) % 4 // 0,1,2,3 döner
+            dotCount = (dotCount + 1) % 4
             let dots = String(repeating: ".", count: dotCount)
             self.statusLabel.text = "Cildiniz analiz ediliyor\(dots)"
         }
@@ -110,7 +109,6 @@ final class AnalysisLoadingViewController: UIViewController {
         dotTimer = nil
     }
 
-    // --- Gemini isteği (kısa ve net) ---
     private func analyzeSkin() {
         guard let resized = resize(image: image, maxDimension: 1024),
               let data = resized.jpegData(compressionQuality: 0.65) else { return }
@@ -139,10 +137,10 @@ final class AnalysisLoadingViewController: UIViewController {
             "generationConfig": ["response_mime_type": "text/plain"]
         ]
 
-        var req = URLRequest(url: URL(string: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent")!)
+        var req = URLRequest(url: URL(string: "")!)
         req.httpMethod = "POST"
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        req.setValue("AIzaSyDduJdwtimnfQ9RKB_jaTT_6vXx1pQ56cc", forHTTPHeaderField: "x-goog-api-key")
+        req.setValue("", forHTTPHeaderField: "")
         req.httpBody = try? JSONSerialization.data(withJSONObject: payload)
 
         URLSession.shared.dataTask(with: req) { [weak self] data, _, _ in
@@ -159,7 +157,7 @@ final class AnalysisLoadingViewController: UIViewController {
 
             DispatchQueue.main.async {
                 self.ring.removeAllAnimations()
-                self.stopDotsAnimation() // ✅ Nokta animasyonu durdur
+                self.stopDotsAnimation()
                 if text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     self.statusLabel.text = "Analiz sonucu alınamadı."
                     self.readyButton.isHidden = true

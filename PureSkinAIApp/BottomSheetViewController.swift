@@ -138,7 +138,7 @@ class BottomSheetViewController: UIViewController, UICollectionViewDataSource, U
 
         let isSelectedOption = options[indexPath.item] == selectedOption
 
-        // Önceki alt görünümleri temizle
+       
         cell.contentView.subviews.forEach { $0.removeFromSuperview() }
 
         let label = UILabel()

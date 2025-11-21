@@ -197,7 +197,6 @@ class SkinConditionsViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     private func setupGrid() {
-        // İki satır oluştur
         for row in 0..<2 {
             let rowStack = UIStackView()
             rowStack.axis = .horizontal
@@ -207,7 +206,6 @@ class SkinConditionsViewController: UIViewController, UITableViewDelegate, UITab
             
             gridStackView.addArrangedSubview(rowStack)
             
-            // Her satıra iki buton ekle
             for col in 0..<2 {
                 let index = row * 2 + col
                 if index < SkinCondition.allCases.count {
@@ -260,11 +258,10 @@ class SkinConditionsViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     @objc private func continueButtonTapped() {
-        // Seçilen cilt durumlarını UserDefaults'a kaydet
+       
         let conditionValues = Array(selectedConditions)
         UserDefaults.standard.set(conditionValues, forKey: "userSkinConditions")
         
-        // Bir sonraki sayfaya geç
         let skinAnalysisVC = SkinAnalysisViewController()
         navigationController?.pushViewController(skinAnalysisVC, animated: true)
     }
@@ -274,7 +271,6 @@ class SkinConditionsViewController: UIViewController, UITableViewDelegate, UITab
         if let savedConditions = UserDefaults.standard.array(forKey: "userSkinConditions") as? [String] {
             selectedConditions = Set(savedConditions)
             
-            // Seçili durumları görsel olarak işaretle
             for rowStack in gridStackView.arrangedSubviews {
                 if let rowStack = rowStack as? UIStackView {
                     for button in rowStack.arrangedSubviews {
@@ -323,7 +319,6 @@ class SkinConditionsViewController: UIViewController, UITableViewDelegate, UITab
             tableView.reloadRows(at: [indexPath], with: .automatic)
         }
         
-        // Seçilen durumları kaydet
         saveSelectedConditions()
     }
     
